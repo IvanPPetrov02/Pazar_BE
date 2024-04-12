@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazar", "Pazar\Pazar.csproj", "{A16EE58F-DDFF-42CC-9B5C-7BD7CF2B6DC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{8C918271-E51A-4E00-BBE5-0CAC6BDB5573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{7D0C37D8-76F2-4998-9E64-A4E814EF4183}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A16EE58F-DDFF-42CC-9B5C-7BD7CF2B6DC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16EE58F-DDFF-42CC-9B5C-7BD7CF2B6DC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16EE58F-DDFF-42CC-9B5C-7BD7CF2B6DC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16EE58F-DDFF-42CC-9B5C-7BD7CF2B6DC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C918271-E51A-4E00-BBE5-0CAC6BDB5573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C918271-E51A-4E00-BBE5-0CAC6BDB5573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C918271-E51A-4E00-BBE5-0CAC6BDB5573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C918271-E51A-4E00-BBE5-0CAC6BDB5573}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0C37D8-76F2-4998-9E64-A4E814EF4183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0C37D8-76F2-4998-9E64-A4E814EF4183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0C37D8-76F2-4998-9E64-A4E814EF4183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0C37D8-76F2-4998-9E64-A4E814EF4183}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
