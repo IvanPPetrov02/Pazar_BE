@@ -1,6 +1,6 @@
 ﻿using BLL;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic; // For returning a list of users
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pazar.Controllers;
 
@@ -16,7 +16,18 @@ public class UserController : ControllerBase
         _userManager = userManager;
     }
     
+    [HttpGet("private-scoped")]
+    [Authorize("read:messages")]
+    public IActionResult Scoped()
+    {
+        return Ok(new
+        {
+            Message = "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this."
+        });
+    }
+    
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> CreateUser([FromBody] User user)
     {
         try
@@ -42,6 +53,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{uuid}")]
+    [Authorize]
     public async Task<IActionResult> UpdateUser(string uuid, [FromBody] User updateUser)
     {
         try
@@ -58,6 +70,7 @@ public class UserController : ControllerBase
     }
     
     [HttpDelete("{uuid}")]
+    [Authorize]
     public async Task<IActionResult> DeleteUser(string uuid)
     {
         try
@@ -72,6 +85,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAllUsers()
     {
         try

@@ -13,3 +13,5 @@ C:\Users\vanit\Desktop\IP\pazar\Pazar\DAL\obj\Debug\net8.0\DAL.dll
 C:\Users\vanit\Desktop\IP\pazar\Pazar\DAL\obj\Debug\net8.0\refint\DAL.dll
 C:\Users\vanit\Desktop\IP\pazar\Pazar\DAL\obj\Debug\net8.0\DAL.pdb
 C:\Users\vanit\Desktop\IP\pazar\Pazar\DAL\obj\Debug\net8.0\ref\DAL.dll
+C:\Users\vanit\Desktop\IP\pazar\Pazar\DAL\bin\Debug\net8.0\DAL.runtimeconfig.json
+C:\Users\vanit\Desktop\IP\pazar\Pazar\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "at5VPMyZFjzUw500/d6A5g+zwT8KqAUzXTvznFMEzf8wXPEStyvta37yqzGkaxqKod5LlgtzB0dhE85pUyd5XA==",
+  "dgSpecHash": "rkeFp1B7DjJd44IjHpfaudSqCEr5rdbL71PEYiqA0kjpthVGcWkv0W4Yh4lsdBNhodnLX6IFj+ScNX+WfWfJaA==",
   "success": true,
   "projectFilePath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\Pazar\\Pazar.csproj",
   "expectedPackageFiles": [
@@ -21,6 +21,7 @@
     "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.0\\microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.dependencymodel\\3.1.6\\microsoft.extensions.dependencymodel.3.1.6.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.logging\\8.0.0\\microsoft.extensions.logging.8.0.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
@@ -39,7 +40,10 @@
     "C:\\Users\\vanit\\.nuget\\packages\\mysql.entityframeworkcore\\8.0.0\\mysql.entityframeworkcore.8.0.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.2\\pomelo.entityframeworkcore.mysql.8.0.2.nupkg.sha512",
+    "C:\\Users\\vanit\\.nuget\\packages\\scrutor\\3.3.0\\scrutor.3.3.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\vanit\\.nuget\\packages\\swashbuckle.aspnetcore.filters\\8.0.1\\swashbuckle.aspnetcore.filters.8.0.1.nupkg.sha512",
+    "C:\\Users\\vanit\\.nuget\\packages\\swashbuckle.aspnetcore.filters.abstractions\\8.0.1\\swashbuckle.aspnetcore.filters.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",

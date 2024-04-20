@@ -46,4 +46,9 @@ public class UserDAO:IUserDAO
     {
         return await _context.Users.ToListAsync();
     }
+    
+    public async Task<User> Login(string email, string password)
+    {
+        return await _context.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
+    }
 }

@@ -10,4 +10,5 @@ public interface IUserDAO
     Task DeleteUserAsync(string uuid);
     Task<User> GetUserByIdAsync(string uuid);
     Task<IEnumerable<User>> GetAllUsersAsync();
+    Task<User> Login(string email, string password);
 }
