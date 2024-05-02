@@ -1,7 +1,10 @@
-﻿namespace BLL;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BLL;
 
 public class Address
 {
+    [Key]
     public int ID { get; set; }
     public string Country { get; set; }
     public string City { get; set; }

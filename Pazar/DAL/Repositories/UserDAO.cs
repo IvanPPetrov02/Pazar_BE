@@ -2,11 +2,10 @@
 using BLL.RepositoryInterfaces;
 using DAL.DbContexts;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace DAL.Repositories;
 
-public class UserDAO:IUserDAO
+public class UserDAO : IUserDAO
 {
     private readonly AppDbContext _context;
 
@@ -46,9 +45,9 @@ public class UserDAO:IUserDAO
     {
         return await _context.Users.ToListAsync();
     }
-    
-    public async Task<User> Login(string email, string password)
+
+    public async Task<User> GetUserByEmailAsync(string email)
     {
-        return await _context.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefaultAsync();
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 }

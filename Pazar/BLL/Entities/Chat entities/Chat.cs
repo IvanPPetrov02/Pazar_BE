@@ -1,8 +1,11 @@
-﻿namespace BLL.Chat_related;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BLL.Chat_related;
 
 
 public class Chat
 {
+    [Key]
     public int Id { get; set; }
     public Message[] Messages { get; set; }
 

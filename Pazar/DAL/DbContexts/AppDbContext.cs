@@ -3,6 +3,7 @@ using BLL;
 using BLL.Category_related;
 using BLL.Chat_related;
 using BLL.Item_related;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DAL.DbContexts;
 
@@ -17,4 +18,5 @@ public class AppDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Chat> Chats { get; set; }
     public DbSet<Message> Messages { get; set; }
+    
 }
