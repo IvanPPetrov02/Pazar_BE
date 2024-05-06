@@ -70,17 +70,16 @@ namespace DAL.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UUID = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Email = table.Column<string>(type: "longtext", nullable: false),
-                    Password = table.Column<string>(type: "longtext", nullable: true),
-                    Name = table.Column<string>(type: "longtext", nullable: false),
-                    Surname = table.Column<string>(type: "longtext", nullable: false),
-                    Phone = table.Column<string>(type: "longtext", nullable: false),
-                    Image = table.Column<byte[]>(type: "longblob", nullable: false),
+                    UUID = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Surname = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Image = table.Column<byte[]>(type: "longblob", nullable: true),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
-                    AddressID = table.Column<int>(type: "int", nullable: false)
+                    AddressID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,8 +88,7 @@ namespace DAL.Migrations
                         name: "FK_Users_Address_AddressID",
                         column: x => x.AddressID,
                         principalTable: "Address",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -109,8 +107,8 @@ namespace DAL.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     BidDuration = table.Column<int>(type: "int", nullable: true),
-                    SellerUUID = table.Column<string>(type: "varchar(255)", nullable: false),
-                    BuyerUUID = table.Column<string>(type: "varchar(255)", nullable: true)
+                    SellerUUID = table.Column<Guid>(type: "char(36)", nullable: false),
+                    BuyerUUID = table.Column<Guid>(type: "char(36)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,8 +139,8 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    SenderUUID = table.Column<string>(type: "varchar(255)", nullable: false),
-                    ReceiverUUID = table.Column<string>(type: "varchar(255)", nullable: false),
+                    SenderUUID = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ReceiverUUID = table.Column<Guid>(type: "char(36)", nullable: false),
                     SentAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     MessageSent = table.Column<string>(type: "longtext", nullable: true),
                     ImageSent = table.Column<byte[]>(type: "longblob", nullable: true),

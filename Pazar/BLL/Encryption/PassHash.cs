@@ -3,7 +3,7 @@
 
 public class PassHash
 {
-    private static string pepper = "pepper_for_passwords_in_pazar";
+    private static string pepper = "PazarPepper";
     public static string GetRandomSalt()
     {
         return BCrypt.Net.BCrypt.GenerateSalt(12);
@@ -16,7 +16,9 @@ public class PassHash
     public static bool ValidatePassword(string password, string correctHash)
     {
         {
-            return BCrypt.Net.BCrypt.Verify(password + pepper, correctHash);
+            var verify = BCrypt.Net.BCrypt.Verify(password + pepper, correctHash);
+            return verify;
+
         }
     }
 }

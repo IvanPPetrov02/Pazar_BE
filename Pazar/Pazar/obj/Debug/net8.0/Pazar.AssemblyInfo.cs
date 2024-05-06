@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pazar")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b1344fddff271753269fff4cbaec7af02bd6867")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5179e4268110be82b1ece220f2c0db60e9d4daa3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pazar")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pazar")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

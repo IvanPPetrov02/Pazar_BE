@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240422092808_Initial")]
+    [Migration("20240503214205_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -99,13 +99,11 @@ namespace DAL.Migrations
                     b.Property<string>("MessageSent")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("ReceiverUUID")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("ReceiverUUID")
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("SenderUUID")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("SenderUUID")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("SentAt")
                         .HasColumnType("datetime(6)");
@@ -133,8 +131,8 @@ namespace DAL.Migrations
                     b.Property<bool>("BidOnly")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("BuyerUUID")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid?>("BuyerUUID")
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("Condition")
                         .HasColumnType("int");
@@ -153,9 +151,8 @@ namespace DAL.Migrations
                     b.Property<double?>("Price")
                         .HasColumnType("double");
 
-                    b.Property<string>("SellerUUID")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("SellerUUID")
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -196,10 +193,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("BLL.User", b =>
                 {
-                    b.Property<string>("UUID")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("UUID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("AddressID")
+                    b.Property<int?>("AddressID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -207,10 +205,10 @@ namespace DAL.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<byte[]>("Image")
-                        .IsRequired()
                         .HasColumnType("longblob");
 
                     b.Property<bool>("IsActive")
@@ -218,21 +216,21 @@ namespace DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("UUID");
 
@@ -309,9 +307,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("BLL.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressID");
 
                     b.Navigation("Address");
                 });

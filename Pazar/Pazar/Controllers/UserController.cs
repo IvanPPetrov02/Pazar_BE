@@ -1,64 +1,71 @@
-﻿using System.Security.Claims;
-using BLL;
+﻿using System;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Auth0.AspNetCore.Authentication;
-using Auth0.ManagementApi;
-using Auth0.ManagementApi.Models;
+using BLL;
 using BLL.DTOs;
-using Role = BLL.Role;
-using User = BLL.User;
-
+using System.Threading.Tasks;
+using BLL.ManagerInterfaces;
+using BLL.Services;
 
 namespace Pazar.Controllers;
-
 
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UserManager _userManager;
+    private readonly IUserManager _userManager;
+    private readonly IJwtService _jwtService;
 
-    public UserController(UserManager userManager)
+    public UserController(IUserManager userManager, IJwtService? jwtService)
     {
         _userManager = userManager;
+        _jwtService = jwtService;
     }
 
-    [HttpGet("private-scoped")]
-    [Authorize(Policy = "read:messages")]
-    public IActionResult Scoped()
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] UserRegisterDTO userDto)
     {
-        return Ok(new
+        var result = await _userManager.RegisterUserAsync(userDto);
+        if (result == "User created")
         {
-            Message = "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this."
-        });
+            return Ok(new { message = result });
+        }
+        else
+        {
+            return BadRequest(new { message = result });
+        }
     }
 
-    
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] UserLoginDTO loginDto)
+    {
+        var token = await _userManager.AuthenticateUserAsync(loginDto.Email, loginDto.Password);
+        if (token != null)
+        {
+            return Ok(new { token });
+        }
+        else
+        {
+            return Unauthorized("Authentication failed");
+        }
+    }
 
+    [Authorize]
     [HttpGet("{uuid}")]
     public async Task<IActionResult> GetUser(string uuid)
     {
         var user = await _userManager.GetUserByIdAsync(uuid);
-        if (user == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(user);
+        return user != null ? Ok(user) : NotFound();
     }
 
-    [HttpPut("update/{uuid}")]
     [Authorize]
-    public async Task<IActionResult> UpdateUser(string uuid, [FromBody] User updateUser)
+    [HttpPut("{uuid}")]
+    public async Task<IActionResult> UpdateUser(string uuid, [FromBody] UserUpdateDTO userDto)
     {
         try
         {
-            updateUser.UUID = new Guid(uuid);
-
-            //await _userManager.UpdateUserAsync(updateUser);
+            await _userManager.UpdateUserDetailsAsync(uuid, userDto);
             return NoContent();
         }
         catch (Exception ex)
@@ -66,58 +73,73 @@ public class UserController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("GetUser")]
+    public IActionResult GetLoggedUser()    
+    {
+        try
+        {
+            var jwt = Request.Cookies["jwt"];
 
-    [HttpDelete("delete/{uuid}")]
+            var token = _jwtService.ValidateToken(jwt);
+
+            string userID = token.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var user = GetUser(userID);
+
+            return Ok(user);
+        }
+        catch(Exception _)
+        {
+            return Unauthorized();
+        }
+    }
+
     [Authorize]
+    [HttpDelete("{uuid}")]
     public async Task<IActionResult> DeleteUser(string uuid)
     {
-        try
-        {
-            await _userManager.DeleteUserAsync(uuid);
-            return NoContent();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
+        await _userManager.DeleteUserAsync(uuid);
+        return NoContent();
     }
 
-    [HttpGet]
     [Authorize]
+    [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
-        try
-        {
-            var users = await _userManager.GetAllUsersAsync();
-            return Ok(users);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
+        var users = await _userManager.GetAllUsersAsync();
+        return Ok(users);
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserRegisterDTO userdto)
+    [Authorize]
+    [HttpPost("activate/{uuid}")]
+    public async Task<IActionResult> ActivateUser(string uuid)
     {
-        var registerUser = new UserCreateRequest
-        {
-            Connection = "Username-Password-Authentication",
-            Email = userdto.Email,
-            Password = userdto.Password
-        };
+        await _userManager.ActivateOrDeactivateUserAsync(uuid, true);
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpPost("deactivate/{uuid}")]
+    public async Task<IActionResult> DeactivateUser(string uuid)
+    {
+        await _userManager.ActivateOrDeactivateUserAsync(uuid, false);
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpPost("change-password/{uuid}")]
+    public async Task<IActionResult> ChangePassword(string uuid, [FromBody] UserPasswordChangeDTO passwordChangeDto)
+    {
         try
         {
-            //var userResponse = await _managementApiClient.Users.CreateAsync(registerUser);
-            User user = new User(userdto.Email, userdto.Password);
-            // await _userManager.CreateUserAsync(user);
-            //return Ok(userResponse);
-            return Ok();
+            await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);
+            return NoContent();
         }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
     }
-
 }

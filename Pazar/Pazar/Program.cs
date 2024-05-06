@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using BLL;
+using BLL.ManagerInterfaces;
 using BLL.RepositoryInterfaces;
+using BLL.Services;
 using DAL.DbContexts;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +29,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 //Add repositories and managers
 builder.Services.AddScoped<IUserDAO, UserDAO>();
-builder.Services.AddScoped<UserManager>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserManager, UserManager>();
 
 //Add authentication
 
@@ -59,6 +62,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
+
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // Add CORS policy for React application
 builder.Services.AddCors(options =>
