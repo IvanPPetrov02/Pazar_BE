@@ -1,16 +1,20 @@
-﻿using BLL.DTOs;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using BLL.DTOs;
 
-namespace BLL.ManagerInterfaces;
-
-public interface IUserManager
+namespace BLL.ManagerInterfaces
 {
-    Task<string> RegisterUserAsync(UserRegisterDTO userDto);
-    Task<string?> AuthenticateUserAsync(string email, string password);
-    Task UpdateUserDetailsAsync(string uuid, UserUpdateDTO userDto);
-    Task DeleteUserAsync(string uuid);
-    Task<User> GetUserByIdAsync(string uuid);
-    Task<IEnumerable<User>> GetAllUsersAsync();
-    Task ActivateOrDeactivateUserAsync(string uuid, bool isActive);
-    Task<User?> GetUserByEmailAsync(string email);
-    Task ChangePasswordAsync(string uuid, string newPassword, string oldPassword);
+    public interface IUserManager
+    {
+        Task<string> RegisterUserAsync(UserRegisterDTO userDto);
+        Task<string?> AuthenticateUserAsync(string email, string password);
+        Task UpdateUserDetailsAsync(string uuid, UserUpdateDTO userDto);
+        Task DeleteUserAsync(string uuid);
+        Task<User?> GetUserByIdAsync(string uuid);
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task ActivateOrDeactivateUserAsync(string uuid, bool isActive);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task ChangePasswordAsync(string uuid, string newPassword, string oldPassword);
+        Task<User?> GetLoggedUserAsync(string jwt);
+    }
 }

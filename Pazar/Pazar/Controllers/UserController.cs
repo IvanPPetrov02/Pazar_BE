@@ -8,138 +8,158 @@ using System.Threading.Tasks;
 using BLL.ManagerInterfaces;
 using BLL.Services;
 
-namespace Pazar.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : ControllerBase
+namespace Pazar.Controllers
 {
-    private readonly IUserManager _userManager;
-    private readonly IJwtService _jwtService;
-
-    public UserController(IUserManager userManager, IJwtService? jwtService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
-        _userManager = userManager;
-        _jwtService = jwtService;
-    }
+        private readonly IUserManager _userManager;
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] UserRegisterDTO userDto)
-    {
-        var result = await _userManager.RegisterUserAsync(userDto);
-        if (result == "User created")
+        public UserController(IUserManager userManager)
         {
-            return Ok(new { message = result });
+            _userManager = userManager;
         }
-        else
-        {
-            return BadRequest(new { message = result });
-        }
-    }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginDTO loginDto)
-    {
-        var token = await _userManager.AuthenticateUserAsync(loginDto.Email, loginDto.Password);
-        if (token != null)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserRegisterDTO userDto)
         {
-            return Ok(new { token });
+            var result = await _userManager.RegisterUserAsync(userDto);
+            if (result == "User created")
+            {
+                return Ok(new { message = result });
+            }
+            else
+            {
+                return BadRequest(new { message = result });
+            }
         }
-        else
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginDTO loginDto)
         {
-            return Unauthorized("Authentication failed");
+            var token = await _userManager.AuthenticateUserAsync(loginDto.Email, loginDto.Password);
+            if (token != null)
+            {
+                Response.Cookies.Append("jwt", token, new CookieOptions { HttpOnly = true, Secure = true });
+                return Ok(new { token });
+            }
+            else
+            {
+                return Unauthorized("Authentication failed");
+            }
         }
-    }
 
-    [Authorize]
-    [HttpGet("{uuid}")]
-    public async Task<IActionResult> GetUser(string uuid)
-    {
-        var user = await _userManager.GetUserByIdAsync(uuid);
-        return user != null ? Ok(user) : NotFound();
-    }
 
-    [Authorize]
-    [HttpPut("{uuid}")]
-    public async Task<IActionResult> UpdateUser(string uuid, [FromBody] UserUpdateDTO userDto)
-    {
-        try
+        [Authorize]
+        [HttpGet("{uuid}")]
+        public async Task<IActionResult> GetUser(string uuid)
         {
-            await _userManager.UpdateUserDetailsAsync(uuid, userDto);
+            var user = await _userManager.GetUserByIdAsync(uuid);
+            return user != null ? Ok(user) : NotFound();
+        }
+
+        [Authorize]
+        [HttpPut("{uuid}")]
+        public async Task<IActionResult> UpdateUser(string uuid, [FromBody] UserUpdateDTO userDto)
+        {
+            try
+            {
+                await _userManager.UpdateUserDetailsAsync(uuid, userDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        
+        [Authorize]
+        [HttpDelete("{uuid}")]
+        public async Task<IActionResult> DeleteUser(string uuid)
+        {
+            await _userManager.DeleteUserAsync(uuid);
             return NoContent();
         }
-        catch (Exception ex)
+
+        [Authorize]
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetLoggedUser()
         {
-            return StatusCode(500, ex.Message);
+            try
+            {
+                // Try to retrieve the JWT from the Authorization header
+                var authorizationHeader = Request.Headers["Authorization"].ToString();
+                string jwt = null;
+
+                if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
+                {
+                    jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+                }
+                else
+                {
+                    // If the JWT is not in the Authorization header, check the cookies
+                    jwt = Request.Cookies["jwt"];
+                }
+
+                if (string.IsNullOrEmpty(jwt))
+                {
+                    return Unauthorized(new { message = "Missing or invalid authorization token." });
+                }
+
+                var user = await _userManager.GetLoggedUserAsync(jwt);
+                if (user == null)
+                {
+                    return Unauthorized(new { message = "Invalid or expired token." });
+                }
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Internal server error.", error = ex.Message });
+            }
         }
-    }
-    
-    [HttpGet]
-    [Route("GetUser")]
-    public IActionResult GetLoggedUser()    
-    {
-        try
+
+
+
+        [Authorize]
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            var jwt = Request.Cookies["jwt"];
-
-            var token = _jwtService.ValidateToken(jwt);
-
-            string userID = token.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var user = GetUser(userID);
-
-            return Ok(user);
+            var users = await _userManager.GetAllUsersAsync();
+            return Ok(users);
         }
-        catch(Exception _)
+
+        [Authorize]
+        [HttpPost("activate/{uuid}")]
+        public async Task<IActionResult> ActivateUser(string uuid)
         {
-            return Unauthorized();
-        }
-    }
-
-    [Authorize]
-    [HttpDelete("{uuid}")]
-    public async Task<IActionResult> DeleteUser(string uuid)
-    {
-        await _userManager.DeleteUserAsync(uuid);
-        return NoContent();
-    }
-
-    [Authorize]
-    [HttpGet]
-    public async Task<IActionResult> GetAllUsers()
-    {
-        var users = await _userManager.GetAllUsersAsync();
-        return Ok(users);
-    }
-
-    [Authorize]
-    [HttpPost("activate/{uuid}")]
-    public async Task<IActionResult> ActivateUser(string uuid)
-    {
-        await _userManager.ActivateOrDeactivateUserAsync(uuid, true);
-        return NoContent();
-    }
-
-    [Authorize]
-    [HttpPost("deactivate/{uuid}")]
-    public async Task<IActionResult> DeactivateUser(string uuid)
-    {
-        await _userManager.ActivateOrDeactivateUserAsync(uuid, false);
-        return NoContent();
-    }
-
-    [Authorize]
-    [HttpPost("change-password/{uuid}")]
-    public async Task<IActionResult> ChangePassword(string uuid, [FromBody] UserPasswordChangeDTO passwordChangeDto)
-    {
-        try
-        {
-            await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);
+            await _userManager.ActivateOrDeactivateUserAsync(uuid, true);
             return NoContent();
         }
-        catch (Exception ex)
+
+        [Authorize]
+        [HttpPost("deactivate/{uuid}")]
+        public async Task<IActionResult> DeactivateUser(string uuid)
         {
-            return BadRequest(ex.Message);
+            await _userManager.ActivateOrDeactivateUserAsync(uuid, false);
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("change-password/{uuid}")]
+        public async Task<IActionResult> ChangePassword(string uuid, [FromBody] UserPasswordChangeDTO passwordChangeDto)
+        {
+            try
+            {
+                await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,126 +1,142 @@
-﻿using BLL.RepositoryInterfaces;
+﻿using System.Security.Claims;
 using BLL.DTOs;
 using BLL.Encryption;
 using BLL.ManagerInterfaces;
+using BLL.RepositoryInterfaces;
 using BLL.Services;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BLL;
-
-public class UserManager : IUserManager
+namespace BLL
 {
-    private readonly IUserDAO _userDao;
-    private readonly IJwtService _jwtService;
-
-    public UserManager(IUserDAO userDao, IJwtService jwtService)
+    public class UserManager : IUserManager
     {
-        _userDao = userDao;
-        _jwtService = jwtService;
-    }
+        private readonly IUserDAO _userDao;
+        private readonly IJwtService _jwtService;
 
-    public async Task<string> RegisterUserAsync(UserRegisterDTO userDto)
-    {
-        var existingUser = await _userDao.GetUserByEmailAsync(userDto.Email);
-        if (existingUser != null)
+        public UserManager(IUserDAO userDao, IJwtService jwtService)
         {
-            return "User already exists";
+            _userDao = userDao;
+            _jwtService = jwtService;
         }
 
-        var newUser = new User
+        public async Task<string> RegisterUserAsync(UserRegisterDTO userDto)
         {
-            Email = userDto.Email,
-            Password = PassHash.HashPassword(userDto.Password),
-            Name = userDto.Name,
-            Surname = userDto.Surname
-        };
+            var existingUser = await _userDao.GetUserByEmailAsync(userDto.Email);
+            if (existingUser != null)
+            {
+                return "User already exists";
+            }
 
-        await _userDao.CreateUserAsync(newUser);
-        return "User created";
-    }
+            var newUser = new User
+            {
+                Email = userDto.Email,
+                Password = PassHash.HashPassword(userDto.Password),
+                Name = userDto.Name,
+                Surname = userDto.Surname
+            };
 
-    public async Task<string?> AuthenticateUserAsync(string email, string password)
-    {
-        var user = await _userDao.GetUserByEmailAsync(email);
-        if (user == null || !PassHash.ValidatePassword(password, user.Password))
-        {
-            return null;
+            await _userDao.CreateUserAsync(newUser);
+            return "User created";
         }
 
-        return _jwtService.GenerateJwtToken(user);
-    }
-
-    public async Task UpdateUserDetailsAsync(string uuid, UserUpdateDTO userDto)
-    {
-        var user = await _userDao.GetUserByIdAsync(uuid);
-        if (user == null)
-            throw new InvalidOperationException("User not found.");
-
-        bool isUpdated = false;
-        if (userDto.Email != null && userDto.Email != user.Email)
+        public async Task<string?> AuthenticateUserAsync(string email, string password)
         {
-            user.Email = userDto.Email;
-            isUpdated = true;
+            var user = await _userDao.GetUserByEmailAsync(email);
+            if (user == null || !PassHash.ValidatePassword(password, user.Password))
+            {
+                return null;
+            }
+
+            return _jwtService.GenerateJwtToken(user);
         }
-        if (userDto.Name != null && userDto.Name != user.Name)
+
+        public async Task UpdateUserDetailsAsync(string uuid, UserUpdateDTO userDto)
         {
-            user.Name = userDto.Name;
-            isUpdated = true;
+            var user = await _userDao.GetUserByIdAsync(uuid);
+            if (user == null)
+                throw new InvalidOperationException("User not found.");
+
+            bool isUpdated = false;
+            if (userDto.Email != null && userDto.Email != user.Email)
+            {
+                user.Email = userDto.Email;
+                isUpdated = true;
+            }
+            if (userDto.Name != null && userDto.Name != user.Name)
+            {
+                user.Name = userDto.Name;
+                isUpdated = true;
+            }
+            if (userDto.Surname != null && userDto.Surname != user.Surname)
+            {
+                user.Surname = userDto.Surname;
+                isUpdated = true;
+            }
+            if (userDto.Image != null && (user.Image == null || !userDto.Image.SequenceEqual(user.Image)))
+            {
+                user.Image = userDto.Image;
+                isUpdated = true;
+            }
+            if (userDto.IsActive != user.IsActive)
+            {
+                user.IsActive = userDto.IsActive;
+                isUpdated = true;
+            }
+            if (isUpdated)
+                await _userDao.UpdateUserAsync(user);
         }
-        if (userDto.Surname != null && userDto.Surname != user.Surname)
+
+        public async Task DeleteUserAsync(string uuid)
         {
-            user.Surname = userDto.Surname;
-            isUpdated = true;
+            await _userDao.DeleteUserAsync(uuid);
         }
-        if (userDto.Image != null && (user.Image == null || !userDto.Image.SequenceEqual(user.Image)))
+
+        public async Task<User?> GetUserByIdAsync(string uuid)
         {
-            user.Image = userDto.Image;
-            isUpdated = true;
+            return await _userDao.GetUserByIdAsync(uuid);
         }
-        if (userDto.IsActive != user.IsActive)
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            user.IsActive = userDto.IsActive;
-            isUpdated = true;
+            return await _userDao.GetAllUsersAsync();
         }
-        if (isUpdated)
-            await _userDao.UpdateUserAsync(user);
-    }
 
-    public async Task DeleteUserAsync(string uuid)
-    {
-        await _userDao.DeleteUserAsync(uuid);
-    }
-
-    public async Task<User> GetUserByIdAsync(string uuid)
-    {
-        return await _userDao.GetUserByIdAsync(uuid);
-    }
-
-    public async Task<IEnumerable<User>> GetAllUsersAsync()
-    {
-        return await _userDao.GetAllUsersAsync();
-    }
-
-    public async Task ActivateOrDeactivateUserAsync(string uuid, bool isActive)
-    {
-        var user = await _userDao.GetUserByIdAsync(uuid);
-        if (user != null)
+        public async Task ActivateOrDeactivateUserAsync(string uuid, bool isActive)
         {
-            user.IsActive = isActive;
-            await _userDao.UpdateUserAsync(user);
+            var user = await _userDao.GetUserByIdAsync(uuid);
+            if (user != null)
+            {
+                user.IsActive = isActive;
+                await _userDao.UpdateUserAsync(user);
+            }
         }
-    }
 
-    public async Task<User?> GetUserByEmailAsync(string email)
-    {
-        return await _userDao.GetUserByEmailAsync(email);
-    }
-
-    public async Task ChangePasswordAsync(string uuid, string newPassword, string oldPassword)
-    {
-        var user = await _userDao.GetUserByIdAsync(uuid);
-        if (user != null && PassHash.ValidatePassword(oldPassword, user.Password))
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            user.Password = PassHash.HashPassword(newPassword);
-            await _userDao.UpdateUserAsync(user);
+            return await _userDao.GetUserByEmailAsync(email);
+        }
+
+        public async Task ChangePasswordAsync(string uuid, string newPassword, string oldPassword)
+        {
+            var user = await _userDao.GetUserByIdAsync(uuid);
+            if (user != null && PassHash.ValidatePassword(oldPassword, user.Password))
+            {
+                user.Password = PassHash.HashPassword(newPassword);
+                await _userDao.UpdateUserAsync(user);
+            }
+        }
+
+        public async Task<User?> GetLoggedUserAsync(string jwt)
+        {
+            var principal = _jwtService.ValidateToken(jwt);
+            if (principal == null) return null;
+
+            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return null;
+
+            return await GetUserByIdAsync(userIdClaim.Value);
         }
     }
 }
