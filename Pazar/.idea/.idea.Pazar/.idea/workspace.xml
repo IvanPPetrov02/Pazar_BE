@@ -11,30 +11,47 @@
   <component name="ChangeListManager">
     <list default="true" id="b86257b6-bcfe-4de0-b991-6a39e0bce74c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/ManagerInterfaces/IUserManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/IUserManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/Managers/UserManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/UserManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserLoginDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserLoginDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserRegisterDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserRegisterDTO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/BLL.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/BLL.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/DAL.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/DAL.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -44,12 +61,21 @@
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Pazar.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Pazar.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,8 +125,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.Pazar: https.executor": "Debug",
+    ".NET Launch Settings Profile.Pazar: https.executor": "Run",
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Docker.Pazar/Dockerfile.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -176,7 +203,7 @@
         <settings>
           <option name="imageTag" value="pazar" />
           <option name="containerName" value="pazar" />
-          <option name="contextFolderPath" value="C:\Users\vanit\Desktop\IP\pazar\Pazar" />
+          <option name="contextFolderPath" value="." />
           <option name="portBindings">
             <list>
               <DockerPortBindingImpl>
@@ -199,6 +226,12 @@
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.Pazar: http" />
+      <item itemvalue=".NET Launch Settings Profile.Pazar: https" />
+      <item itemvalue=".NET Launch Settings Profile.Pazar: IIS Express" />
+      <item itemvalue="Docker.Pazar/Dockerfile" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -232,6 +265,7 @@
       <workItem from="1714769943979" duration="10557000" />
       <workItem from="1715168086085" duration="675000" />
       <workItem from="1715168782461" duration="4396000" />
+      <workItem from="1715374084697" duration="2845000" />
     </task>
     <servers />
   </component>

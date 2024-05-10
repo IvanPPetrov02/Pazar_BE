@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\DAL\\DAL.csproj": {}
+    "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\DAL\\DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj": {
+    "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj",
+        "projectUniqueName": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj",
         "projectName": "BLL",
-        "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj",
+        "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj",
         "packagesPath": "C:\\Users\\vanit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\obj\\",
+        "outputPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vanit\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -77,14 +77,14 @@
         }
       }
     },
-    "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\DAL\\DAL.csproj": {
+    "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\DAL\\DAL.csproj",
+        "projectUniqueName": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\DAL\\DAL.csproj",
+        "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\vanit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\DAL\\obj\\",
+        "outputPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vanit\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -101,8 +101,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj": {
-                "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj"
+              "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj": {
+                "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj"
               }
             }
           }

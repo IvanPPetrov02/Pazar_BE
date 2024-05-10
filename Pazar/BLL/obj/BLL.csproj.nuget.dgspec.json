@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj": {}
+    "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj": {
+    "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj",
+        "projectUniqueName": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj",
         "projectName": "BLL",
-        "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj",
+        "projectPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj",
         "packagesPath": "C:\\Users\\vanit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\obj\\",
+        "outputPath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vanit\\AppData\\Roaming\\NuGet\\NuGet.Config",

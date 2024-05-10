@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pfVi4VRWreLe+jkO5cIDC5oSR9/0ZtiIvROeBsCA+ksbm3ly4OZUAUNk36/Y+1I10sPRJpu3ubcRYjHF2H002g==",
+  "dgSpecHash": "pljbVhhMX6XKN0+YVoS/GGHFI+iCQ6McFqDFlcB9fYtazEs6qEHQGK4l3UUpkAa5YJpvqg+GPIe+u67S1iIthw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\Pazar\\Pazar.csproj",
+  "projectFilePath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\Pazar\\Pazar.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vanit\\.nuget\\packages\\auth0.aspnetcore.authentication\\1.4.1\\auth0.aspnetcore.authentication.1.4.1.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\auth0.core\\7.26.2\\auth0.core.7.26.2.nupkg.sha512",

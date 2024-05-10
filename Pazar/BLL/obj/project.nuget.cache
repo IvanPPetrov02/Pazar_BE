@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ChUI6VM8Wvk5D8K3qBZvLhNwvKwPW6bnxPdB0vJJ//7QfYlRwjVw2ESIdfX6fCdwyta7879t4xmak+vTqmZjMA==",
+  "dgSpecHash": "zlNAY840MeZwYCdKC1R7WBTI0LOI0KgIIBUOqb0+rauOZ9cqDwFIe6KiTOJufX/q4gl51fWPNnYWryqBm/0s0g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vanit\\Desktop\\IP\\pazar\\Pazar\\BLL\\BLL.csproj",
+  "projectFilePath": "C:\\Users\\vanit\\Desktop\\IP\\Pazar_BE\\Pazar\\BLL\\BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vanit\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\vanit\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
