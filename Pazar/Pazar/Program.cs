@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using BLL;
@@ -11,29 +11,53 @@ using BLL.RepositoryInterfaces;
 using BLL.Services;
 using DAL.DbContexts;
 using DAL.Repositories;
-using Microsoft.AspNetCore.Authorization;
+using MySqlConnector;
 using Pazar;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Add db context
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-if (connectionString == null)
+// Add logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
+var configuration = builder.Configuration;
+var environment = builder.Environment;
+
+string connectionString;
+
+if (environment.IsDevelopment())
 {
-    throw new InvalidOperationException("DefaultConnection is not set in the configuration.");
+    connectionString = configuration.GetConnectionString("DefaultConnection");
+}
+else
+{
+    connectionString = configuration.GetConnectionString("DockerConnection");
+}
+
+try
+{
+    Console.WriteLine($"Attempting to connect to the database using connection string: {connectionString}");
+    using (var connection = new MySqlConnection(connectionString))
+    {
+        connection.Open();
+        Console.WriteLine("Successfully connected to the database.");
+    }
+}
+catch (Exception e)
+{
+    Console.WriteLine($"Failed to connect to the database: {e.Message}");
+    throw;
 }
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySQL(connectionString));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-//Add repositories and managers
+// Add repositories and managers
 builder.Services.AddScoped<IUserDAO, UserDAO>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 
-//Add authentication
-
+// Add authentication
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -49,14 +73,13 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"])),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AppSettings:Token"])),
             ValidateIssuer = false,
             ValidateAudience = false
         };
@@ -80,20 +103,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddSingleton<IConfiguration>(configuration);
 
 // Add CORS policy for React application
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("NgOrigins",
-        policyBuilder  => policyBuilder .WithOrigins("http://localhost:5173")
+        policyBuilder => policyBuilder.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
 });
 
 var app = builder.Build();
+
+// Ensure database migrations are applied on startup
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -105,13 +134,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("NgOrigins");
-
-
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
