@@ -10,151 +10,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b86257b6-bcfe-4de0-b991-6a39e0bce74c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#ib_16384_0.dblwr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#ib_16384_1.dblwr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_1.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_10.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_2.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_3.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_4.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_5.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_6.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_7.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_8.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/#innodb_temp/temp_9.ibt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/auto.cnf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/binlog.000001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/binlog.000002" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/binlog.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ca-key.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ca.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/client-cert.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/client-key.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ib_buffer_pool" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ib_logfile0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ib_logfile1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ibdata1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/ibtmp1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql.ibd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql/general_log.CSM" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql/general_log.CSV" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql/general_log_207.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql/slow_log.CSM" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql/slow_log.CSV" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/mysql/slow_log_208.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/accounts_142.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/binary_log_trans_184.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/cond_instances_81.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/data_lock_waits_158.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/data_locks_157.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_errors_su_136.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_errors_su_137.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_errors_su_138.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_errors_su_139.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_errors_su_140.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_cu_108.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_hi_109.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_hi_110.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_su_111.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_su_112.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_su_113.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_su_114.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_stages_su_115.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_116.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_117.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_118.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_119.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_120.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_121.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_122.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_123.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_124.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_125.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_126.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_statement_127.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_128.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_129.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_130.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_131.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_132.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_133.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_134.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_transacti_135.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_cur_82.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_his_83.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_his_84.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_sum_85.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_sum_86.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_sum_87.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_sum_88.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_sum_89.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/events_waits_sum_90.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/file_instances_91.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/file_summary_by__92.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/file_summary_by__93.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/global_status_176.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/global_variables_179.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/host_cache_94.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/hosts_143.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/keyring_keys_149.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/log_status_169.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/memory_summary_b_151.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/memory_summary_b_152.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/memory_summary_b_153.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/memory_summary_b_154.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/memory_summary_g_150.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/metadata_locks_156.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/mutex_instances_95.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/objects_summary__96.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/performance_time_97.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/persisted_variab_182.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/prepared_stateme_170.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_appl_162.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_appl_163.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_appl_164.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_appl_165.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_appl_167.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_appl_168.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_conn_159.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_conn_161.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_grou_160.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/replication_grou_166.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/rwlock_instances_98.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/session_account__148.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/session_connect__147.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/session_status_177.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/session_variable_180.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/setup_actors_99.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/setup_consumers_100.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/setup_instrument_101.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/setup_objects_102.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/setup_threads_103.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/socket_instances_144.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/socket_summary_b_145.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/socket_summary_b_146.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/status_by_accoun_172.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/status_by_host_173.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/status_by_thread_174.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/status_by_user_175.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/table_handles_155.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/table_io_waits_s_104.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/table_io_waits_s_105.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/table_lock_waits_106.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/threads_107.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/tls_channel_stat_185.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/user_defined_fun_183.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/user_variables_b_171.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/users_141.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/variables_by_thr_178.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/performance_schema/variables_info_181.sdi" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/private_key.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/public_key.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/server-cert.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/server-key.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/sys/sys_config.ibd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/undo_001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql/undo_002" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000019" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000020" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000021" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000022" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000023" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000024" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000025" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000026" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000027" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000028" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000029" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000030" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000031" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000032" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000033" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000034" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000035" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql/binlog.000036" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
@@ -164,7 +37,6 @@
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -176,10 +48,9 @@
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -187,7 +58,6 @@
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" afterDir="false" />
@@ -195,7 +65,15 @@
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/binlog.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/ib_logfile0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/undo_002" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,37 +121,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.Pazar: https.executor": "Run",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Docker.Pazar/Dockerfile.executor": "Run",
-    "Docker.docker-compose.yml.bedb: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.Pazar: https.executor&quot;: &quot;Run&quot;,
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Docker.Pazar/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.bedb: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver",
-      "mysql",
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;,
+      &quot;mysql&quot;,
+      &quot;mariadb&quot;
     ],
-    "rider.external.source.directories": [
-      "C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\vanit\\AppData\\Local\\Symbols\\src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\vanit\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="Pazar: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Pazar/Pazar.csproj" />
@@ -342,7 +220,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
@@ -423,7 +304,8 @@
       <workItem from="1715168782461" duration="4396000" />
       <workItem from="1715374084697" duration="3126000" />
       <workItem from="1715601039233" duration="418000" />
-      <workItem from="1715619017033" duration="9952000" />
+      <workItem from="1715619017033" duration="10027000" />
+      <workItem from="1715692412919" duration="23728000" />
     </task>
     <servers />
   </component>
@@ -433,30 +315,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Pazar/Controllers/UserController.cs</url>
-          <line>95</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\pazar\Pazar\Pazar\Controllers\UserController.cs" initialLine="95" containingFunctionPresentation="Method 'GetLoggedUser'" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Pazar/Controllers/UserController.cs</url>
-          <line>96</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\pazar\Pazar\Pazar\Controllers\UserController.cs" initialLine="96" containingFunctionPresentation="Method 'GetLoggedUser'" />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Pazar/Controllers/UserController.cs</url>
-          <line>94</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\pazar\Pazar\Pazar\Controllers\UserController.cs" initialLine="94" containingFunctionPresentation="Method 'GetLoggedUser'" />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

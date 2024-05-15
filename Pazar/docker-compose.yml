@@ -2,7 +2,7 @@
 services:
   pazarapi:
     ports:
-      - "8000:8000"
+      - "8080:8080"
     build:
       context: .
       dockerfile: Pazar/Dockerfile
@@ -57,6 +57,7 @@ services:
 
 networks:
   pznw:
+    name: pazar_network
     ipam:
       config:
         - subnet: "10.56.1.0/24"

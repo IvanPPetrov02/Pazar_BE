@@ -57,6 +57,16 @@ builder.Services.AddScoped<IUserDAO, UserDAO>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 
+// Add CORS policy for React application
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NgOrigins",
+        policyBuilder => policyBuilder.WithOrigins("http://localhost:3000", "http://fe:3000", "https://localhost:3000", "https://fe:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials());
+});
+
 // Add authentication
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -105,15 +115,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddSingleton<IConfiguration>(configuration);
 
-// Add CORS policy for React application
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("NgOrigins",
-        policyBuilder => policyBuilder.WithOrigins("http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials());
-});
 
 var app = builder.Build();
 

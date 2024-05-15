@@ -15,26 +15,41 @@ namespace Pazar.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserManager _userManager;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserManager userManager)
+        public UserController(IUserManager userManager, ILogger<UserController> logger)
         {
             _userManager = userManager;
+            _logger = logger;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterDTO userDto)
         {
-            var result = await _userManager.RegisterUserAsync(userDto);
-            if (result == "User created")
+            _logger.LogInformation("Register endpoint hit");
+            _logger.LogInformation($"Email: {userDto.Email}, Name: {userDto.Name}, Surname: {userDto.Surname}");
+
+            try
             {
-                return Ok(new { message = result });
+                var result = await _userManager.RegisterUserAsync(userDto);
+                if (result == "User created")
+                {
+                    _logger.LogInformation("User created successfully");
+                    return Ok(new { message = result });
+                }
+                else
+                {
+                    _logger.LogWarning($"Registration failed: {result}");
+                    return BadRequest(new { message = result });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest(new { message = result });
+                _logger.LogError(ex, "An error occurred while processing the registration");
+                return StatusCode(500, "Internal server error");
             }
         }
-
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO loginDto)
         {
@@ -66,7 +81,7 @@ namespace Pazar.Controllers
             try
             {
                 await _userManager.UpdateUserDetailsAsync(uuid, userDto);
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -79,7 +94,7 @@ namespace Pazar.Controllers
         public async Task<IActionResult> DeleteUser(string uuid)
         {
             await _userManager.DeleteUserAsync(uuid);
-            return NoContent();
+            return Ok();
         }
 
         [Authorize]
@@ -136,7 +151,7 @@ namespace Pazar.Controllers
         public async Task<IActionResult> ActivateUser(string uuid)
         {
             await _userManager.ActivateOrDeactivateUserAsync(uuid, true);
-            return NoContent();
+            return Ok();
         }
 
         [Authorize]
@@ -144,7 +159,7 @@ namespace Pazar.Controllers
         public async Task<IActionResult> DeactivateUser(string uuid)
         {
             await _userManager.ActivateOrDeactivateUserAsync(uuid, false);
-            return NoContent();
+            return Ok();
         }
 
         [Authorize]
@@ -154,7 +169,7 @@ namespace Pazar.Controllers
             try
             {
                 await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
