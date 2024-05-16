@@ -61,7 +61,7 @@ builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("NgOrigins",
-        policyBuilder => policyBuilder.WithOrigins("http://localhost:3000", "http://fe:3000", "https://localhost:3000", "https://fe:3000")
+        policyBuilder => policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://fe:3000", "https://localhost:3000", "https://fe:3000", "https://localhost:7176")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
@@ -115,10 +115,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddSingleton<IConfiguration>(configuration);
 
-
 var app = builder.Build();
 
-// Ensure database migrations are applied on startup
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -134,9 +132,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+
 app.UseCors("NgOrigins");
-app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
