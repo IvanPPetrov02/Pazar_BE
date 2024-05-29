@@ -1,4 +1,4 @@
-name: SonarScanner
+name: Generate Coverage Report
 
 on:
   push:
@@ -9,15 +9,13 @@ on:
       - main
 
 jobs:
-  build-and-analyze:
+  generate-coverage:
     runs-on: self-hosted
 
     env:
       DOTNET_ROOT: ${{ github.workspace }}/.dotnet
-      PATH: ${{ github.workspace }}/.dotnet:$PATH:/usr/bin:/home/runner/.dotnet/tools:/usr/lib/jvm/java-17-openjdk-amd64/bin
+      PATH: ${{ github.workspace }}/.dotnet:$PATH:/usr/bin:/home/runner/.dotnet/tools
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
-      SONAR_HOST_URL: http://sonarqube:9000
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -34,27 +32,15 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore --configuration Release Pazar/Pazar.sln
 
-      - name: Run tests
-        run: dotnet test --no-build --configuration Release Pazar/Pazar.sln
-
-      - name: Prepare SonarQube Scanner
+      - name: Run tests with coverage
         run: |
-          dotnet tool install --global dotnet-sonarscanner
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet tool install --global JetBrains.dotCover.GlobalTool
-
-      - name: Run SonarQube Scan
-        run: |
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.html"
-          dotnet build Pazar/Pazar.sln
           mkdir -p ${{ github.workspace }}/coverage
+          dotnet tool install --global JetBrains.dotCover.GlobalTool
+          export PATH="$PATH:$HOME/.dotnet/tools"
           cd Pazar
           dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
-          echo "Coverage report generated at ${{ github.workspace }}/coverage/dotCover.Output.html"
           ls -l ${{ github.workspace }}/coverage
           cd ..
-          dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
