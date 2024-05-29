@@ -33,20 +33,21 @@ jobs:
         run: dotnet build --no-restore --configuration Release Pazar/Pazar.sln
 
       - name: Install dotCover
-        run: dotnet tool install --global JetBrains.dotCover.GlobalTool
+        run: |
+          dotnet tool install --global JetBrains.dotCover.GlobalTool
+          echo "DOTNET_TOOLS=$HOME/.dotnet/tools" >> $GITHUB_ENV
 
       - name: Verify dotCover Installation
-        run: dotcover help
+        run: |
+          echo "Verifying dotCover installation"
+          $HOME/.dotnet/tools/dotcover help
 
       - name: Run tests with coverage
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          cd Pazar
-          dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html" || echo "dotCover command failed"
+          $HOME/.dotnet/tools/dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           echo "Checking coverage directory contents:"
           ls -l ${{ github.workspace }}/coverage
-          cd ..
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
