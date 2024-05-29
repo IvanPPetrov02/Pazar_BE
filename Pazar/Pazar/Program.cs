@@ -53,9 +53,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add repositories and managers
-builder.Services.AddScoped<IUserDAO, UserDAO>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserDAO, UserDAO>();
+builder.Services.AddScoped<IAddressDAO, AddressDAO>();
 builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IItemDAO, ItemDAO>();
+builder.Services.AddScoped<IItemManager, ItemManager>();
 
 // Add CORS policy for React application
 builder.Services.AddCors(options =>

@@ -20,14 +20,16 @@ namespace UnitTests
     {
         private UserManager _userManager;
         private UserDAOFake _userDaoFake;
+        private AddressDAOFake _addressDaoFake;
         private Mock<IJwtService> _mockJwtService;
 
         [SetUp]
         public void Setup()
         {
             _userDaoFake = new UserDAOFake();
+            _addressDaoFake = new AddressDAOFake();
             _mockJwtService = new Mock<IJwtService>();
-            _userManager = new UserManager(_userDaoFake, _mockJwtService.Object);
+            _userManager = new UserManager(_userDaoFake, _addressDaoFake, _mockJwtService.Object);
         }
 
         [Test]
@@ -119,17 +121,29 @@ namespace UnitTests
         }
 
         [Test]
-        public async Task DeleteUserAsync_ShouldDeleteUser_WhenUserExists()
+        public async Task DeleteUserAsync_ShouldDeleteUserAndAddress_WhenUserExists()
         {
             // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
+            var address = new Address
+            {
+                ID = 1,
+                Country = "Country1",
+                City = "City1",
+                Street = "Street1",
+                Number = "Number1",
+                ZipCode = "ZipCode1"
+            };
+            user.Address = address;
 
             // Act
             await _userManager.DeleteUserAsync(user.UUID.ToString());
             var deletedUser = await _userDaoFake.GetUserByIdAsync(user.UUID.ToString());
+            var deletedAddress = await _addressDaoFake.GetAddressByIdAsync(address.ID);
 
             // Assert
             Assert.IsNull(deletedUser);
+            Assert.IsNull(deletedAddress);
         }
 
         [Test]

@@ -7,6 +7,7 @@ using BLL.DTOs;
 using System.Threading.Tasks;
 using BLL.ManagerInterfaces;
 using BLL.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Pazar.Controllers
 {
@@ -49,14 +50,20 @@ namespace Pazar.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO loginDto)
         {
             var token = await _userManager.AuthenticateUserAsync(loginDto.Email, loginDto.Password);
             if (token != null)
             {
-                Response.Cookies.Append("jwt", token, new CookieOptions { HttpOnly = true, Secure = true });
+                Response.Cookies.Append("jwt", token, new CookieOptions
+                {
+                    HttpOnly = true, 
+                    Secure = true,
+                    IsEssential = true,
+                    SameSite = SameSiteMode.None
+                });
                 return Ok(new { token });
             }
             else
@@ -89,13 +96,26 @@ namespace Pazar.Controllers
             }
         }
         
-        [Authorize]
         [HttpDelete("{uuid}")]
         public async Task<IActionResult> DeleteUser(string uuid)
         {
-            await _userManager.DeleteUserAsync(uuid);
-            return Ok();
+            try
+            {
+                await _userManager.DeleteUserAsync(uuid);
+                return NoContent(); // Return 204
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Return 404
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                // Return 500
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
         }
+
 
         [Authorize]
         [HttpGet("GetUser")]
@@ -130,13 +150,27 @@ namespace Pazar.Controllers
 
                 return Ok(user);
             }
+            catch (SecurityTokenExpiredException)
+            {
+                return Unauthorized(new { message = "Token has expired." });
+            }
+            catch (SecurityTokenInvalidSignatureException)
+            {
+                return Unauthorized(new { message = "Token has an invalid signature." });
+            }
+            catch (SecurityTokenException ex)
+            {
+                return Unauthorized(new { message = $"Token error: {ex.Message}" });
+            }
+            catch (FormatException)
+            {
+                return BadRequest(new { message = "Invalid token format." });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Internal server error.", error = ex.Message });
             }
         }
-
-
 
         [Authorize]
         [HttpGet("GetAllUsers")]
@@ -169,12 +203,51 @@ namespace Pazar.Controllers
             try
             {
                 await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);
-                return Ok();
+                return Ok(new { Message = "Password successfully changed." });
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Return 404
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                // Return 401
+                return Unauthorized(new { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                // Return 400
+                return BadRequest(new { Message = ex.Message });
             }
+        }
+
+        
+        [HttpPost("Logout")]
+        public IActionResult Logout()
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+            };
+
+            Response.Cookies.Append("jwt", "", cookieOptions);
+
+            return Ok("success");
+        }
+        
+        [HttpGet("CheckJwtToken")]
+        public IActionResult CheckJwtToken()
+        {
+            string jwtToken = Request.Cookies["jwt"];
+
+            if (string.IsNullOrEmpty(jwtToken))
+            {
+                return Ok(new { HasToken = false });
+            }
+            return Ok(new { HasToken = true });
         }
     }
 }

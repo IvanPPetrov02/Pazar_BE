@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     }
     
     public DbSet<User> Users { get; set; }
+    public DbSet<Address> Address { get; set; }
     public DbSet<Item> Items { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Chat> Chats { get; set; }
