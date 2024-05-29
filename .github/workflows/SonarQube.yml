@@ -46,7 +46,7 @@ jobs:
       - name: Run SonarQube Scan
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/dotCover.Output.html"
+          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.html"
           dotnet build Pazar/Pazar.sln
           mkdir -p ${{ github.workspace }}/coverage
           cd Pazar
