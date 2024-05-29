@@ -38,6 +38,7 @@ jobs:
           echo "PATH after dotCover installation: $PATH"
           echo "Tools directory: $HOME/.dotnet/tools"
           ls -l $HOME/.dotnet/tools
+          which dotcover
 
       - name: Verify dotCover Installation
         run: |
@@ -47,8 +48,8 @@ jobs:
       - name: Run tests with coverage
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          cd Pazar
-          $HOME/.dotnet/tools/dotcover test Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          dotcover test Pazar/Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           echo "Checking coverage directory contents:"
           ls -l ${{ github.workspace }}/coverage
 
