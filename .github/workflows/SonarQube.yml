@@ -41,13 +41,13 @@ jobs:
         run: |
           dotnet tool install --global dotnet-sonarscanner
           export PATH="$PATH:$HOME/.dotnet/tools"
-          echo "PATH after tool installation: $PATH"
           dotnet tool install --global JetBrains.dotCover.GlobalTool
 
       - name: Run SonarQube Scan
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="Pazar/dotCover.Output.html"
+          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/dotCover.Output.html"
           dotnet build Pazar/Pazar.sln
-          dotnet dotcover test Pazar.sln --dcReportType=HTML --output="Pazar/dotCover.Output.html"
+          mkdir -p ${{ github.workspace }}/coverage
+          dotnet dotcover test Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
