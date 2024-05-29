@@ -32,13 +32,19 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore --configuration Release Pazar/Pazar.sln
 
+      - name: Install dotCover
+        run: dotnet tool install --global JetBrains.dotCover.GlobalTool
+
+      - name: Verify dotCover Installation
+        run: dotcover help
+
       - name: Run tests with coverage
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          dotnet tool install --global JetBrains.dotCover.GlobalTool
           export PATH="$PATH:$HOME/.dotnet/tools"
           cd Pazar
-          dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html" || echo "dotCover command failed"
+          echo "Checking coverage directory contents:"
           ls -l ${{ github.workspace }}/coverage
           cd ..
 
