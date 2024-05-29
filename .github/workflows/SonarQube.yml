@@ -47,7 +47,8 @@ jobs:
       - name: Run tests with coverage
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          cd Pazar
+          $HOME/.dotnet/tools/dotcover test Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           echo "Checking coverage directory contents:"
           ls -l ${{ github.workspace }}/coverage
 
