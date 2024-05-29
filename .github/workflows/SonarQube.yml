@@ -14,7 +14,7 @@ jobs:
 
     env:
       DOTNET_ROOT: ${{ github.workspace }}/.dotnet
-      PATH: ${{ github.workspace }}/.dotnet:$PATH:/usr/bin:/home/runner/.dotnet/tools
+      PATH: ${{ github.workspace }}/.dotnet:$PATH:/usr/bin:/home/runner/.dotnet/tools:$PATH
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
 
     steps:
@@ -35,7 +35,9 @@ jobs:
       - name: Install dotCover
         run: |
           dotnet tool install --global JetBrains.dotCover.GlobalTool
-          echo "DOTNET_TOOLS=$HOME/.dotnet/tools" >> $GITHUB_ENV
+          echo "PATH after dotCover installation: $PATH"
+          echo "Tools directory: $HOME/.dotnet/tools"
+          ls -l $HOME/.dotnet/tools
 
       - name: Verify dotCover Installation
         run: |
