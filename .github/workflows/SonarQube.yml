@@ -51,6 +51,8 @@ jobs:
           mkdir -p ${{ github.workspace }}/coverage
           cd Pazar
           dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          echo "Coverage report generated at ${{ github.workspace }}/coverage/dotCover.Output.html"
+          ls -l ${{ github.workspace }}/coverage
           cd ..
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 
