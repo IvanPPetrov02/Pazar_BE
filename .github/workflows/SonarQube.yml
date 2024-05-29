@@ -49,7 +49,5 @@ jobs:
           export PATH="$PATH:$HOME/.dotnet/tools"
           dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="Pazar/dotCover.Output.html"
           dotnet build Pazar/Pazar.sln
-          cd Pazar
-          dotnet dotcover test Pazar.sln --dcReportType=HTML --output=dotCover.Output.html
-          cd ..
+          dotnet dotcover test Pazar.sln --dcReportType=HTML --output="Pazar/dotCover.Output.html"
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
