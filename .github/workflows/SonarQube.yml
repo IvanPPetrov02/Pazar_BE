@@ -42,12 +42,12 @@ jobs:
       - name: Verify dotCover Installation
         run: |
           echo "Verifying dotCover installation"
-          $HOME/.dotnet/tools/dotcover help
+          dotnet tool list --global
 
       - name: Run tests with coverage
         run: |
           mkdir -p ${{ github.workspace }}/coverage
-          $HOME/.dotnet/tools/dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           echo "Checking coverage directory contents:"
           ls -l ${{ github.workspace }}/coverage
 
