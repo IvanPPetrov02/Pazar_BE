@@ -53,3 +53,9 @@ jobs:
           dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           cd ..
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ${{ github.workspace }}/coverage/dotCover.Output.html
