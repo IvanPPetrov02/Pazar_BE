@@ -49,5 +49,7 @@ jobs:
           dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/dotCover.Output.html"
           dotnet build Pazar/Pazar.sln
           mkdir -p ${{ github.workspace }}/coverage
-          dotnet dotcover test Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          cd Pazar
+          dotnet dotcover test --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          cd ..
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
