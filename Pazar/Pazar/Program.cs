@@ -6,9 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using BLL;
+using BLL.CategoryRelated;
 using BLL.ManagerInterfaces;
 using BLL.RepositoryInterfaces;
 using BLL.Services;
+using DAL.CategoryRelated;
 using DAL.DbContexts;
 using DAL.Repositories;
 using MySqlConnector;
@@ -59,6 +61,8 @@ builder.Services.AddScoped<IAddressDAO, AddressDAO>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IItemDAO, ItemDAO>();
 builder.Services.AddScoped<IItemManager, ItemManager>();
+builder.Services.AddScoped<ICategoryDAO, CategoryDAO>();
+builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 
 // Add CORS policy for React application
 builder.Services.AddCors(options =>
