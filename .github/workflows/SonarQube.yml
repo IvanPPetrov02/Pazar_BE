@@ -51,10 +51,10 @@ jobs:
       - name: Run SonarQube Scan
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.xml"
+          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.xml"
           dotnet build Pazar/Pazar.sln
           dotnet test Pazar/Pazar.sln
-          dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
