@@ -39,7 +39,7 @@ jobs:
           dotnet tool install --global JetBrains.dotCover.GlobalTool
           export PATH="$PATH:$HOME/.dotnet/tools"
           mkdir -p ${{ github.workspace }}/coverage
-          dotnet-dotcover test Pazar/Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+          dotnet-dotcover test Pazar/Pazar.sln --dcReportType=XML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
           ls -l ${{ github.workspace }}/coverage
 
       - name: Prepare SonarQube Scanner
@@ -53,5 +53,5 @@ jobs:
           export PATH="$PATH:$HOME/.dotnet/tools"
           dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.html"
           dotnet build Pazar/Pazar.sln
-          dotnet dotcover test --dcReportType=HTML
+          dotnet dotcover test --dcReportType=XML
           dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
