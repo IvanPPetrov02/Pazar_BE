@@ -1,4 +1,4 @@
-name: SonarScanner
+name: SonarQube Analysis
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build-and-analyze:
+  sonarQube:
     runs-on: self-hosted
 
     env:
@@ -34,23 +34,35 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore --configuration Release Pazar/Pazar.sln
 
-      - name: Run tests with coverage
-        run: |
-          dotnet tool install --global JetBrains.dotCover.GlobalTool
-          export PATH="$PATH:$HOME/.dotnet/tools"
-          mkdir -p ${{ github.workspace }}/coverage
-          dotnet-dotcover test Pazar/Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
-          ls -l ${{ github.workspace }}/coverage
+      - name: Install dotCover
+        run: dotnet tool install --global JetBrains.dotCover.GlobalTool
 
       - name: Prepare SonarQube Scanner
         run: |
           dotnet tool install --global dotnet-sonarscanner
           export PATH="$PATH:$HOME/.dotnet/tools"
-          echo "PATH after tool installation: $PATH"
-      
-      - name: Run SonarQube Scan
+
+      - name: Run SonarQube Scan Begin
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
-          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="$SONAR_TOKEN" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.html"
-          dotnet build Pazar/Pazar.sln
-          dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN"
+          dotnet sonarscanner begin /k:"Pazar" /d:sonar.host.url="$SONAR_HOST_URL" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.dotcover.reportsPaths="${{ github.workspace }}/coverage/dotCover.Output.html"
+
+      - name: Build project for SonarQube
+        run: dotnet build --no-incremental Pazar/Pazar.sln
+
+      - name: Run tests with coverage
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          mkdir -p ${{ github.workspace }}/coverage
+          dotnet dotcover test Pazar/Pazar.sln --dcReportType=HTML --output="${{ github.workspace }}/coverage/dotCover.Output.html"
+
+      - name: Run SonarQube Scan End
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ${{ github.workspace }}/coverage/dotCover.Output.html
