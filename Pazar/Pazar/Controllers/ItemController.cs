@@ -1,15 +1,14 @@
-﻿using BLL.DTOs;
+﻿using BLL.DTOs.ItemDTOs;
 using BLL.Item_related;
-using BLL.ManagerInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using BLL.DTOs.ItemDTOs;
+using BLL.ManagerInterfaces;
 
 namespace Pazar.Controllers
 {
-    [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
+    [ApiController]
     public class ItemController : ControllerBase
     {
         private readonly IItemManager _itemManager;
@@ -19,37 +18,18 @@ namespace Pazar.Controllers
             _itemManager = itemManager;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateItem([FromBody] ItemCreateDTO itemDto)
-        {
-            await _itemManager.CreateItemAsync(itemDto);
-            return Ok(new { message = "Item created" });
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItem(int id, [FromBody] ItemUpdateDTO itemDto)
-        {
-            if (id != itemDto.Id)
-            {
-                return BadRequest(new { message = "Item ID mismatch" });
-            }
-
-            await _itemManager.UpdateItemAsync(itemDto);
-            return Ok(new { message = "Item updated" });
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem(int id)
-        {
-            await _itemManager.DeleteItemAsync(id);
-            return Ok(new { message = "Item deleted" });
-        }
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem(int id)
+        public async Task<IActionResult> GetItemById(int id)
         {
-            var item = await _itemManager.GetItemByIdAsync(id);
-            return item != null ? Ok(item) : NotFound(new { message = "Item not found" });
+            try
+            {
+                var item = await _itemManager.GetItemByIdAsync(id);
+                return Ok(item);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
         }
 
         [HttpGet]
@@ -59,18 +39,92 @@ namespace Pazar.Controllers
             return Ok(items);
         }
 
-        [HttpPut("status/{id}")]
-        public async Task<IActionResult> UpdateItemStatus(int id, [FromBody] ItemStatus status)
+        [HttpPost]
+        public async Task<IActionResult> CreateItem([FromBody] ItemCreateDTO itemDto)
         {
-            await _itemManager.UpdateItemStatusAsync(id, status);
-            return Ok(new { message = "Item status updated" });
+            try
+            {
+                await _itemManager.CreateItemAsync(itemDto);
+                return CreatedAtAction(nameof(GetItemById), new { id = itemDto.SubCategoryId }, itemDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
-        [HttpPut("images/{id}")]
-        public async Task<IActionResult> UpdateItemImages(int id, [FromBody] List<ItemImages> images)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateItem(int id, [FromBody] ItemUpdateDTO itemDto)
         {
-            await _itemManager.UpdateItemImagesAsync(id, images);
-            return Ok(new { message = "Item images updated" });
+            try
+            {
+                itemDto.Id = id; // Ensure the ID is set correctly
+                await _itemManager.UpdateItemAsync(itemDto);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            try
+            {
+                await _itemManager.DeleteItemAsync(id);
+                return Ok(new { Message = "Item successfully deleted." });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateItemStatus(int id, [FromBody] ItemStatus status)
+        {
+            try
+            {
+                await _itemManager.UpdateItemStatusAsync(id, status);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}/images")]
+        public async Task<IActionResult> UpdateItemImages(int id, [FromBody] List<ItemImageDTO> images)
+        {
+            try
+            {
+                var imageEntities = images.Select(img => new ItemImages { Image = img.Image }).ToList();
+                await _itemManager.UpdateItemImagesAsync(id, imageEntities);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
     }
 }

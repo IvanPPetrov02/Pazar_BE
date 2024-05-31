@@ -16,6 +16,26 @@ namespace DAL.Repositories
             _context = context;
         }
 
+        public async Task<Item> GetItemByIdAsync(int id)
+        {
+            return await _context.Items
+                .Include(i => i.Images)
+                .Include(i => i.SubCategory)
+                .Include(i => i.Seller)
+                .Include(i => i.Buyer)
+                .FirstOrDefaultAsync(i => i.Id == id);
+        }
+
+        public async Task<IEnumerable<Item>> GetAllItemsAsync()
+        {
+            return await _context.Items
+                .Include(i => i.Images)
+                .Include(i => i.SubCategory)
+                .Include(i => i.Seller)
+                .Include(i => i.Buyer)
+                .ToListAsync();
+        }
+
         public async Task CreateItemAsync(Item item)
         {
             _context.Items.Add(item);
@@ -30,30 +50,12 @@ namespace DAL.Repositories
 
         public async Task DeleteItemAsync(int id)
         {
-            var item = await _context.Items.FindAsync(id);
+            var item = await GetItemByIdAsync(id);
             if (item != null)
             {
                 _context.Items.Remove(item);
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public async Task<Item?> GetItemByIdAsync(int id)
-        {
-            return await _context.Items
-                .Include(i => i.SubCategory)
-                .Include(i => i.Seller)
-                .Include(i => i.Buyer)
-                .FirstOrDefaultAsync(i => i.Id == id);
-        }
-
-        public async Task<IEnumerable<Item>> GetAllItemsAsync()
-        {
-            return await _context.Items
-                .Include(i => i.SubCategory)
-                .Include(i => i.Seller)
-                .Include(i => i.Buyer)
-                .ToListAsync();
         }
     }
 }

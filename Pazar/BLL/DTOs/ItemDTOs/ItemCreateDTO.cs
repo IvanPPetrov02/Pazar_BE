@@ -8,10 +8,11 @@ public class ItemCreateDTO
     public string Name { get; set; }
     public string Description { get; set; }
     public double? Price { get; set; }
-    public List<ItemImages> Images { get; set; }
-    public Category SubCategory { get; set; }
+    public List<ItemImageDTO>? Images { get; set; }
+    public int SubCategoryId { get; set; }
     public Condition Condition { get; set; }
     public bool BidOnly { get; set; }
+    public ItemStatus Status { get; set; }
     public BidDuration? BidDuration { get; set; }
-    public User Seller { get; set; }
+    public string SellerId { get; set; }
 }
