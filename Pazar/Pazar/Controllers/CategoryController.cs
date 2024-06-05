@@ -31,10 +31,17 @@ namespace Pazar.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        [HttpGet("GetCategories")]
+        public async Task<IActionResult> GetAllMainCategories()
         {
             var categories = await _categoryManager.GetAllCategoriesAsync();
+            return Ok(categories);
+        }
+
+        [HttpGet("GetSubCategories")]
+        public async Task<IActionResult> GetAllSubCategories()
+        {
+            var categories = await _categoryManager.GetAllSubCategoriesAsync();
             return Ok(categories);
         }
 
@@ -87,5 +94,13 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+        
+        [HttpGet("GetAllCategoriesWithSubcategories")]
+        public async Task<IActionResult> GetAllCategoriesWithSubcategories()
+        {
+            var categories = await _categoryManager.GetAllCategoriesWithSubcategoriesAsync();
+            return Ok(categories);
+        }
+
     }
 }

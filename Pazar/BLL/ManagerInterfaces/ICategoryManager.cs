@@ -7,8 +7,10 @@ namespace BLL.CategoryRelated
     {
         Task<Category> GetCategoryByIdAsync(int id);
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
+        Task<IEnumerable<Category>> GetAllSubCategoriesAsync();
         Task<Category> CreateCategoryAsync(CategoryCreateDTO categoryDto);
         Task UpdateCategoryAsync(int id, CategoryUpdateDTO categoryDto);
         Task DeleteCategoryAsync(int id);
+        Task<IEnumerable<CategoryWithSubcategoriesDTO>> GetAllCategoriesWithSubcategoriesAsync();
     }
 }

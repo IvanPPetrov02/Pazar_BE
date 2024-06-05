@@ -96,6 +96,7 @@ namespace Pazar.Controllers
             }
         }
         
+        [Authorize]
         [HttpDelete("{uuid}")]
         public async Task<IActionResult> DeleteUser(string uuid)
         {
@@ -223,7 +224,7 @@ namespace Pazar.Controllers
         }
 
         
-        [HttpPost("Logout")]
+        [HttpPost("logout")]
         public IActionResult Logout()
         {
             var cookieOptions = new CookieOptions
@@ -232,22 +233,23 @@ namespace Pazar.Controllers
                 Secure = true,
                 SameSite = SameSiteMode.None,
             };
-
+        
             Response.Cookies.Append("jwt", "", cookieOptions);
-
+        
             return Ok("success");
         }
         
-        [HttpGet("CheckJwtToken")]
-        public IActionResult CheckJwtToken()
-        {
-            string jwtToken = Request.Cookies["jwt"];
-
-            if (string.IsNullOrEmpty(jwtToken))
-            {
-                return Ok(new { HasToken = false });
-            }
-            return Ok(new { HasToken = true });
-        }
+        // [HttpGet("checkJwtToken")]
+        // public IActionResult CheckJwtToken()
+        // {
+        //     string jwtToken = Request.Cookies["jwt"];
+        //
+        //     if (string.IsNullOrEmpty(jwtToken))
+        //     {
+        //         return Ok(new { HasToken = false });
+        //     }
+        //     return Ok(new { HasToken = true });
+        // }
+        
     }
 }

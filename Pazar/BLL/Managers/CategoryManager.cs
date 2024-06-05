@@ -22,7 +22,14 @@ namespace BLL.CategoryRelated
 
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
-            return await _categoryDao.GetAllCategoriesAsync();
+            var allCategories = await _categoryDao.GetAllCategoriesAsync();
+            return allCategories.Where(c => c.ParentCategory == null);
+        }
+
+        public async Task<IEnumerable<Category>> GetAllSubCategoriesAsync()
+        {
+            var allCategories = await _categoryDao.GetAllCategoriesAsync();
+            return allCategories.Where(c => c.ParentCategory != null);
         }
 
         public async Task<Category> CreateCategoryAsync(CategoryCreateDTO categoryDto) // Updated return type
@@ -55,6 +62,31 @@ namespace BLL.CategoryRelated
         public async Task DeleteCategoryAsync(int id)
         {
             await _categoryDao.DeleteCategoryAsync(id);
+        }
+        
+        public async Task<IEnumerable<CategoryWithSubcategoriesDTO>> GetAllCategoriesWithSubcategoriesAsync()
+        {
+            var allCategories = await _categoryDao.GetAllCategoriesAsync();
+            var mainCategories = allCategories.Where(c => c.ParentCategory == null);
+
+            var result = new List<CategoryWithSubcategoriesDTO>();
+
+            foreach (var mainCategory in mainCategories)
+            {
+                var subcategories = allCategories
+                    .Where(c => c.ParentCategory != null && c.ParentCategory.Id == mainCategory.Id)
+                    .Select(c => new SubcategoryDTO { Id = c.Id, Name = c.Name })
+                    .ToList();
+
+                result.Add(new CategoryWithSubcategoriesDTO
+                {
+                    Id = mainCategory.Id,
+                    Name = mainCategory.Name,
+                    Subcategories = subcategories
+                });
+            }
+
+            return result;
         }
     }
 }
