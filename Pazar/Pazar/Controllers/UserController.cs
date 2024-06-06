@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BLL.ManagerInterfaces;
 using BLL.Services;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
 
 namespace Pazar.Controllers
 {
@@ -17,11 +18,13 @@ namespace Pazar.Controllers
     {
         private readonly IUserManager _userManager;
         private readonly ILogger<UserController> _logger;
+        private readonly IJwtService _jwtService;
 
-        public UserController(IUserManager userManager, ILogger<UserController> logger)
+        public UserController(IUserManager userManager, ILogger<UserController> logger, IJwtService jwtService)
         {
             _userManager = userManager;
             _logger = logger;
+            _jwtService = jwtService;
         }
 
         [HttpPost("register")]
@@ -50,6 +53,7 @@ namespace Pazar.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO loginDto)
@@ -59,7 +63,7 @@ namespace Pazar.Controllers
             {
                 Response.Cookies.Append("jwt", token, new CookieOptions
                 {
-                    HttpOnly = true, 
+                    HttpOnly = true,
                     Secure = true,
                     IsEssential = true,
                     SameSite = SameSiteMode.None
@@ -72,11 +76,24 @@ namespace Pazar.Controllers
             }
         }
 
-
         [Authorize]
         [HttpGet("{uuid}")]
         public async Task<IActionResult> GetUser(string uuid)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             var user = await _userManager.GetUserByIdAsync(uuid);
             return user != null ? Ok(user) : NotFound();
         }
@@ -85,6 +102,20 @@ namespace Pazar.Controllers
         [HttpPut("{uuid}")]
         public async Task<IActionResult> UpdateUser(string uuid, [FromBody] UserUpdateDTO userDto)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             try
             {
                 await _userManager.UpdateUserDetailsAsync(uuid, userDto);
@@ -92,14 +123,29 @@ namespace Pazar.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An error occurred while updating the user");
                 return StatusCode(500, ex.Message);
             }
         }
-        
+
         [Authorize]
         [HttpDelete("{uuid}")]
         public async Task<IActionResult> DeleteUser(string uuid)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             try
             {
                 await _userManager.DeleteUserAsync(uuid);
@@ -108,75 +154,68 @@ namespace Pazar.Controllers
             catch (InvalidOperationException ex)
             {
                 // Return 404
+                _logger.LogWarning("User not found for deletion: " + ex.Message);
                 return NotFound(new { Message = ex.Message });
             }
             catch (Exception ex)
             {
                 // Return 500
+                _logger.LogError(ex, "An error occurred while deleting the user");
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
             }
         }
-
 
         [Authorize]
         [HttpGet("GetUser")]
         public async Task<IActionResult> GetLoggedUser()
         {
-            try
-            {
-                // Try to retrieve the JWT from the Authorization header
-                var authorizationHeader = Request.Headers["Authorization"].ToString();
-                string jwt = null;
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
 
-                if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
-                {
-                    jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-                }
-                else
-                {
-                    // If the JWT is not in the Authorization header, check the cookies
-                    jwt = Request.Cookies["jwt"];
-                }
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
 
-                if (string.IsNullOrEmpty(jwt))
-                {
-                    return Unauthorized(new { message = "Missing or invalid authorization token." });
-                }
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
 
-                var user = await _userManager.GetLoggedUserAsync(jwt);
-                if (user == null)
-                {
-                    return Unauthorized(new { message = "Invalid or expired token." });
-                }
+            var userIdClaim = principal?.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized(new { message = "Invalid token." });
+            }
 
-                return Ok(user);
-            }
-            catch (SecurityTokenExpiredException)
+            var user = await _userManager.GetLoggedUserAsync(userIdClaim.Value);
+            if (user == null)
             {
-                return Unauthorized(new { message = "Token has expired." });
+                return Unauthorized(new { message = "Invalid or expired token." });
             }
-            catch (SecurityTokenInvalidSignatureException)
-            {
-                return Unauthorized(new { message = "Token has an invalid signature." });
-            }
-            catch (SecurityTokenException ex)
-            {
-                return Unauthorized(new { message = $"Token error: {ex.Message}" });
-            }
-            catch (FormatException)
-            {
-                return BadRequest(new { message = "Invalid token format." });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Internal server error.", error = ex.Message });
-            }
+
+            return Ok(user);
         }
 
         [Authorize]
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             var users = await _userManager.GetAllUsersAsync();
             return Ok(users);
         }
@@ -185,6 +224,20 @@ namespace Pazar.Controllers
         [HttpPost("activate/{uuid}")]
         public async Task<IActionResult> ActivateUser(string uuid)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             await _userManager.ActivateOrDeactivateUserAsync(uuid, true);
             return Ok();
         }
@@ -193,6 +246,20 @@ namespace Pazar.Controllers
         [HttpPost("deactivate/{uuid}")]
         public async Task<IActionResult> DeactivateUser(string uuid)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             await _userManager.ActivateOrDeactivateUserAsync(uuid, false);
             return Ok();
         }
@@ -201,6 +268,20 @@ namespace Pazar.Controllers
         [HttpPost("change-password/{uuid}")]
         public async Task<IActionResult> ChangePassword(string uuid, [FromBody] UserPasswordChangeDTO passwordChangeDto)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             try
             {
                 await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);
@@ -223,7 +304,6 @@ namespace Pazar.Controllers
             }
         }
 
-        
         [HttpPost("logout")]
         public IActionResult Logout()
         {
@@ -233,23 +313,10 @@ namespace Pazar.Controllers
                 Secure = true,
                 SameSite = SameSiteMode.None,
             };
-        
+
             Response.Cookies.Append("jwt", "", cookieOptions);
-        
+
             return Ok("success");
         }
-        
-        // [HttpGet("checkJwtToken")]
-        // public IActionResult CheckJwtToken()
-        // {
-        //     string jwtToken = Request.Cookies["jwt"];
-        //
-        //     if (string.IsNullOrEmpty(jwtToken))
-        //     {
-        //         return Ok(new { HasToken = false });
-        //     }
-        //     return Ok(new { HasToken = true });
-        // }
-        
     }
 }

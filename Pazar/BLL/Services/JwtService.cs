@@ -13,16 +13,15 @@ namespace BLL.Services
 
         public JwtService(IConfiguration configuration)
         {
-            // Retrieve the secret key from the configuration
-            _secretKey = configuration["AppSettings:Token"] ?? throw new InvalidOperationException("JWT secret key must be set.");
+            _secretKey = configuration["AppSettings:Token"] ??
+                         throw new InvalidOperationException("JWT secret key must be set.");
         }
 
         public string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
-
-            // Create claims based on user data
+            
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UUID.ToString()),
@@ -33,16 +32,16 @@ namespace BLL.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(1), // Adjust expiration as necessary
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
-
-            // Create and write the JWT token
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 
-        public ClaimsPrincipal ValidateToken(string token)
+        public bool ValidateToken(string token, out ClaimsPrincipal? principal)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
@@ -51,22 +50,32 @@ namespace BLL.Services
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false, // Skip issuer validation if not required
-                ValidateAudience = false, // Skip audience validation if not required
+                ValidateIssuer = false,
+                ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero
             };
 
             try
             {
-                // Validate the incoming JWT token
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-                return principal; // Return ClaimsPrincipal if the token is valid
+                principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+                return true;
             }
             catch (SecurityTokenException)
             {
-                // Token validation failed
-                return null;
+                principal = null;
+                return false;
             }
+        }
+
+        public bool IsAdmin(ClaimsPrincipal principal)
+        {
+            return principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Admin";
+        }
+
+        public bool IsAdminOrOwner(ClaimsPrincipal principal, string userId)
+        {
+            return IsAdmin(principal) ||
+                   principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == userId;
         }
     }
 }

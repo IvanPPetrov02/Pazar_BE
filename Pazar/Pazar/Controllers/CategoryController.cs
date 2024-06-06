@@ -2,19 +2,22 @@
 using BLL.DTOs.CategoryDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using BLL.Services;
 
 namespace Pazar.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryManager _categoryManager;
+        private readonly IJwtService _jwtService;
 
-        public CategoryController(ICategoryManager categoryManager)
+        public CategoryController(ICategoryManager categoryManager, IJwtService jwtService)
         {
             _categoryManager = categoryManager;
+            _jwtService = jwtService;
         }
 
         [HttpGet("{id}")]
@@ -45,9 +48,23 @@ namespace Pazar.Controllers
             return Ok(categories);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryCreateDTO categoryDto)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             try
             {
                 var createdCategory = await _categoryManager.CreateCategoryAsync(categoryDto);
@@ -59,9 +76,23 @@ namespace Pazar.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryUpdateDTO categoryDto)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             try
             {
                 await _categoryManager.UpdateCategoryAsync(id, categoryDto);
@@ -77,9 +108,23 @@ namespace Pazar.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
             try
             {
                 await _categoryManager.DeleteCategoryAsync(id);
@@ -94,13 +139,12 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
-        
+
         [HttpGet("GetAllCategoriesWithSubcategories")]
         public async Task<IActionResult> GetAllCategoriesWithSubcategories()
         {
             var categories = await _categoryManager.GetAllCategoriesWithSubcategoriesAsync();
             return Ok(categories);
         }
-
     }
 }

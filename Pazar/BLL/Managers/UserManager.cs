@@ -114,15 +114,12 @@ namespace BLL
     }
     catch (DbUpdateException dbEx)
     {
-        // Log the inner exception
         var innerException = dbEx.InnerException?.Message ?? dbEx.Message;
-        // Use a logging framework or system diagnostics for logging
         Console.WriteLine($"An error occurred while saving the entity changes: {innerException}");
         throw;
     }
     catch (Exception ex)
     {
-        // Handle other exceptions
         Console.WriteLine($"An unexpected error occurred: {ex.Message}");
         throw;
     }
@@ -228,15 +225,14 @@ namespace BLL
         }
 
 
-        public async Task<User?> GetLoggedUserAsync(string jwt)
+        public async Task<User?> GetLoggedUserAsync(string userId)
         {
-            var principal = _jwtService.ValidateToken(jwt);
-            if (principal == null) return null;
-
-            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null) return null;
-
-            return await GetUserByIdAsync(userIdClaim.Value);
+            return await GetUserByIdAsync(userId);
         }
+
+
+
+
+
     }
 }

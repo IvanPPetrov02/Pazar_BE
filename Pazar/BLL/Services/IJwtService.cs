@@ -5,5 +5,7 @@ namespace BLL.Services;
 public interface IJwtService
 {
     string GenerateJwtToken(User user);
-    ClaimsPrincipal ValidateToken(string token);
+    bool ValidateToken(string token, out ClaimsPrincipal? principal);
+    bool IsAdmin(ClaimsPrincipal principal);
+    bool IsAdminOrOwner(ClaimsPrincipal principal, string userId);
 }

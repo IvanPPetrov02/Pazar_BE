@@ -32,10 +32,10 @@ namespace BLL.CategoryRelated
             return allCategories.Where(c => c.ParentCategory != null);
         }
 
-        public async Task<Category> CreateCategoryAsync(CategoryCreateDTO categoryDto) // Updated return type
+        public async Task<Category> CreateCategoryAsync(CategoryCreateDTO categoryDto)
         {
-            var parentCategory = categoryDto.ParentCategory != null
-                ? await _categoryDao.GetCategoryByIdAsync(categoryDto.ParentCategory.Id)
+            var parentCategory = categoryDto.ParentCategoryId.HasValue 
+                ? await _categoryDao.GetCategoryByIdAsync(categoryDto.ParentCategoryId.Value) 
                 : null;
 
             var category = new Category
@@ -45,19 +45,24 @@ namespace BLL.CategoryRelated
             };
 
             await _categoryDao.CreateCategoryAsync(category);
-            return category; // Return the created category
+            return category;
         }
 
         public async Task UpdateCategoryAsync(int id, CategoryUpdateDTO categoryDto)
-        {
-            var category = await _categoryDao.GetCategoryByIdAsync(id);
-            if (category == null) throw new InvalidOperationException("Category not found.");
+{
+    var category = await _categoryDao.GetCategoryByIdAsync(id);
+    if (category == null) throw new InvalidOperationException("Category not found.");
 
-            category.Name = categoryDto.Name;
-            category.ParentCategory = categoryDto.ParentCategory;
+    category.Name = categoryDto.Name;
 
-            await _categoryDao.UpdateCategoryAsync(category);
-        }
+    var parentCategory = categoryDto.ParentCategoryId.HasValue
+        ? await _categoryDao.GetCategoryByIdAsync(categoryDto.ParentCategoryId.Value)
+        : null;
+
+    category.ParentCategory = parentCategory;
+
+    await _categoryDao.UpdateCategoryAsync(category);
+}
 
         public async Task DeleteCategoryAsync(int id)
         {
