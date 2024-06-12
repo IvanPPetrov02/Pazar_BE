@@ -6,6 +6,7 @@ namespace BLL.DTOs.ItemDTOs;
 
 public class ItemCreateDTO
 {
+    [MaxLength(50)]
     public string Name { get; set; }
     [MaxLength(300)]
     public string Description { get; set; }

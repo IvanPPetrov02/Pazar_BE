@@ -113,6 +113,25 @@ namespace BLL.ItemRelated
 
             return item.Seller.UUID.ToString() == userId;
         }
+        
+        public async Task<IEnumerable<Item>> GetItemsByParentCategoryAsync(int parentCategoryId)
+        {
+            var allItems = await GetAllItemsFilteredAsync();
+    
+            var itemsInSameParentCategory = allItems.Where(item => item.SubCategory?.ParentCategory?.Id == parentCategoryId);
 
+            return itemsInSameParentCategory;
+        }
+        
+        public async Task<IEnumerable<Item>> GetAllItemsFilteredAsync()
+        {
+            var allItems = await _itemDao.GetAllItemsAsync();
+
+            var filteredItems = allItems.Where(item =>
+                !item.BidOnly ||
+                item.CreatedAt.AddHours((double)item.BidDuration) > DateTime.UtcNow);
+
+            return filteredItems;
+        }
     }
 }

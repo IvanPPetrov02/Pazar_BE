@@ -21,6 +21,7 @@ namespace DAL.Repositories
             return await _context.Items
                 .Include(i => i.Images)
                 .Include(i => i.SubCategory)
+                .ThenInclude(s => s.ParentCategory)
                 .Include(i => i.Seller)
                 .Include(i => i.Buyer)
                 .FirstOrDefaultAsync(i => i.Id == id);
@@ -31,6 +32,7 @@ namespace DAL.Repositories
             return await _context.Items
                 .Include(i => i.Images)
                 .Include(i => i.SubCategory)
+                .ThenInclude(s => s.ParentCategory)
                 .Include(i => i.Seller)
                 .Include(i => i.Buyer)
                 .ToListAsync();

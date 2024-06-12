@@ -13,5 +13,7 @@ namespace BLL.ManagerInterfaces
         Task UpdateItemStatusAsync(int id, ItemStatus status);
         Task UpdateItemImagesAsync(int id, List<ItemImages> images);
         Task<bool> IsUserSellerAsync(int itemId, string userId);
+        Task<IEnumerable<Item>> GetItemsByParentCategoryAsync(int parentCategoryId);
+        Task<IEnumerable<Item>> GetAllItemsFilteredAsync();
     }
 }

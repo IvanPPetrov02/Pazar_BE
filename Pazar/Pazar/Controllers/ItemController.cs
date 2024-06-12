@@ -303,8 +303,27 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
-
-
-
+        
+        
+        [HttpGet("category/{parentCategoryId}")]
+        public async Task<IActionResult> GetItemsByParentCategory(int parentCategoryId)
+        {
+            try
+            {
+                var items = await _itemManager.GetItemsByParentCategoryAsync(parentCategoryId);
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+        
+        [HttpGet("filtered")]
+        public async Task<IActionResult> GetAllItemsFiltered()
+        {
+            var items = await _itemManager.GetAllItemsFilteredAsync();
+            return Ok(items);
+        }
     }
 }
