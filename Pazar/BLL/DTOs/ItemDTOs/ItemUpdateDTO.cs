@@ -1,4 +1,5 @@
-﻿using BLL.Category_related;
+﻿using System.ComponentModel.DataAnnotations;
+using BLL.Category_related;
 using BLL.Item_related;
 
 namespace BLL.DTOs.ItemDTOs;
@@ -7,6 +8,7 @@ public class ItemUpdateDTO
 {
     public int Id { get; set; }
     public string Name { get; set; }
+    [MaxLength(300)]
     public string Description { get; set; }
     public double? Price { get; set; }
     public List<ItemImageDTO>? Images { get; set; }

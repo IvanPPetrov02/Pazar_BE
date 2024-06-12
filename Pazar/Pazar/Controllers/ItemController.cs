@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using BLL.ManagerInterfaces;
 using System.Security.Claims;
 using BLL.Services;
+using Newtonsoft.Json;
 
 namespace Pazar.Controllers
 {
@@ -26,14 +27,22 @@ namespace Pazar.Controllers
         {
             try
             {
+                Console.WriteLine($"Fetching item with ID: {id}");
                 var item = await _itemManager.GetItemByIdAsync(id);
+                if (item == null)
+                {
+                    Console.WriteLine($"Item with ID: {id} not found.");
+                    return NotFound(new { Message = "Item not found." });
+                }
                 return Ok(item);
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
-                return NotFound(new { Message = ex.Message });
+                Console.WriteLine($"Error fetching item with ID: {id}, Error: {ex.Message}");
+                return BadRequest(new { Message = ex.Message });
             }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllItems()
@@ -69,14 +78,22 @@ namespace Pazar.Controllers
 
             try
             {
+                // Log the incoming item data for debugging
+                Console.WriteLine($"Received item data: {JsonConvert.SerializeObject(itemDto)}");
+
                 await _itemManager.CreateItemAsync(itemDto);
                 return CreatedAtAction(nameof(GetItemById), new { id = itemDto.SubCategoryId }, itemDto);
             }
             catch (Exception ex)
             {
+                // Log the error message for debugging
+                Console.WriteLine($"Error: {ex.Message}");
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
+
+
 
         [Authorize]
         [HttpPut("{id}")]
@@ -108,7 +125,7 @@ namespace Pazar.Controllers
 
             try
             {
-                itemDto.Id = id; // Ensure the ID is set correctly
+                itemDto.Id = id;
                 await _itemManager.UpdateItemAsync(itemDto);
                 return Ok();
             }
@@ -207,7 +224,7 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
-
+        
         [Authorize]
         [HttpPut("{id}/images")]
         public async Task<IActionResult> UpdateItemImages(int id, [FromBody] List<ItemImageDTO> images)
@@ -238,7 +255,8 @@ namespace Pazar.Controllers
 
             try
             {
-                var imageEntities = images.Select(img => new ItemImages { Image = img.Image }).ToList();
+                // Set image to null
+                var imageEntities = images.Select(img => new ItemImages { Image = null }).ToList();
                 await _itemManager.UpdateItemImagesAsync(id, imageEntities);
                 return Ok();
             }
@@ -251,5 +269,42 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+        
+        [Authorize]
+        [HttpGet("{id}/isseller")]
+        public async Task<IActionResult> IsUserSeller(int id)
+        {
+            var authorizationHeader = Request.Headers["Authorization"].ToString();
+            string jwt = null;
+
+            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+
+            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
+            {
+                return Unauthorized(new { message = "Invalid or missing authorization token." });
+            }
+
+            var userIdClaim = principal?.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized(new { message = "Invalid token." });
+            }
+
+            try
+            {
+                var isSeller = await _itemManager.IsUserSellerAsync(id, userIdClaim.Value);
+                return Ok(new { isSeller });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+
+
     }
 }

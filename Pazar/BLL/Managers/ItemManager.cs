@@ -26,21 +26,26 @@ namespace BLL.ItemRelated
             var item = new Item
             {
                 Name = itemDto.Name,
-                Description = itemDto.Description,
-                Price = itemDto.Price,
-                Images = itemDto.Images?.Select(img => new ItemImages { Image = img.Image }).ToList(),
+                Description = itemDto.Description.Length > 300 ? itemDto.Description.Substring(0, 300) : itemDto.Description,
+                Price = itemDto.BidOnly ? null : itemDto.Price,
+                Images = itemDto.Images?.Select(img => new ItemImages { Image = null }).ToList(), // Set image to null
                 SubCategory = subCategory,
                 Condition = itemDto.Condition,
                 BidOnly = itemDto.BidOnly,
-                Status = itemDto.Status,
+                Status = itemDto.BidOnly ? ItemStatus.Bidding : ItemStatus.Available,
                 CreatedAt = DateTime.UtcNow,
-                BidDuration = itemDto.BidDuration,
+                BidDuration = itemDto.BidOnly ? itemDto.BidDuration : null,
                 Seller = seller,
                 Buyer = null
             };
 
             await _itemDao.CreateItemAsync(item);
         }
+
+
+
+
+
 
         public async Task UpdateItemAsync(ItemUpdateDTO itemDto)
         {
@@ -51,9 +56,11 @@ namespace BLL.ItemRelated
             var buyer = itemDto.BuyerId != null ? await _userDao.GetUserByIdAsync(itemDto.BuyerId) : null;
 
             item.Name = itemDto.Name;
-            item.Description = itemDto.Description;
+            item.Description = itemDto.Description.Length > 300
+                ? itemDto.Description.Substring(0, 300)
+                : itemDto.Description;
             item.Price = itemDto.Price;
-            item.Images = itemDto.Images?.Select(img => new ItemImages { Image = img.Image }).ToList();
+            item.Images = itemDto.Images?.Select(img => new ItemImages { Image = null }).ToList(); // Set image to null
             item.SubCategory = subCategory;
             item.Condition = itemDto.Condition;
             item.BidOnly = itemDto.BidOnly;
@@ -63,6 +70,8 @@ namespace BLL.ItemRelated
 
             await _itemDao.UpdateItemAsync(item);
         }
+
+
 
         public async Task DeleteItemAsync(int id)
         {
@@ -96,5 +105,14 @@ namespace BLL.ItemRelated
             item.Images = images;
             await _itemDao.UpdateItemAsync(item);
         }
+        
+        public async Task<bool> IsUserSellerAsync(int itemId, string userId)
+        {
+            var item = await _itemDao.GetItemByIdAsync(itemId);
+            if (item == null) throw new InvalidOperationException("Item not found.");
+
+            return item.Seller.UUID.ToString() == userId;
+        }
+
     }
 }

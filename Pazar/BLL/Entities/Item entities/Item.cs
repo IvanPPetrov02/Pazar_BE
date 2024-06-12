@@ -8,6 +8,7 @@ public class Item
     [Key]
     public int Id { get; set; }
     public string Name { get; set; }
+    [MaxLength(300)]
     public string Description { get; set; }
     public double? Price { get; set; }
     public List<ItemImages> Images { get; set; }

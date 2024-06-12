@@ -2,5 +2,5 @@
 
 public class ItemImageDTO
 {
-    public byte[] Image { get; set; }
+    public string Image { get; set; }
 }

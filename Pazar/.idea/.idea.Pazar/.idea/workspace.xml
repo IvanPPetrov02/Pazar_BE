@@ -11,12 +11,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b86257b6-bcfe-4de0-b991-6a39e0bce74c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryCreateDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryUpdateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryUpdateDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemCreateDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemImageDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemImageDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemUpdateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemUpdateDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/Entities/Item entities/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Entities/Item entities/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/ManagerInterfaces/IItemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/IItemManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/Managers/CategoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/CategoryManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/Managers/UserManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/UserManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/Services/IJwtService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Services/IJwtService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/Services/JwtService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Services/JwtService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/Managers/ItemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/ItemManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" afterDir="false" />
@@ -26,7 +27,6 @@
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -38,10 +38,8 @@
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/CategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/CategoryController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/Controllers/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/ItemController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -56,7 +54,15 @@
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/binlog.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/ib_logfile0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/undo_002" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,38 +116,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.Pazar: https.executor": "Debug",
-    "6ac538d6-6e0f-4b9d-a8ac-25c2e83cc0e2.executor": "Debug",
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Docker.Pazar/Dockerfile.executor": "Run",
-    "Docker.docker-compose.yml.bedb: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.Pazar: https.executor&quot;: &quot;Run&quot;,
+    &quot;6ac538d6-6e0f-4b9d-a8ac-25c2e83cc0e2.executor&quot;: &quot;Debug&quot;,
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Docker.Pazar/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.bedb: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver",
-      "mysql",
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;,
+      &quot;mysql&quot;,
+      &quot;mariadb&quot;
     ],
-    "rider.external.source.directories": [
-      "C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\vanit\\AppData\\Local\\Symbols\\src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\vanit\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\vanit\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Pazar: https">
     <configuration name="Pazar: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Pazar/Pazar.csproj" />
@@ -307,7 +313,12 @@
       <workItem from="1717149377227" duration="1298000" />
       <workItem from="1717403424959" duration="12514000" />
       <workItem from="1717617861945" duration="7335000" />
-      <workItem from="1717661878962" duration="15750000" />
+      <workItem from="1717661878962" duration="16141000" />
+      <workItem from="1717970060370" duration="1194000" />
+      <workItem from="1717971763087" duration="1301000" />
+      <workItem from="1717973606765" duration="251000" />
+      <workItem from="1718031823107" duration="2381000" />
+      <workItem from="1718113670968" duration="12052000" />
     </task>
     <servers />
   </component>
@@ -317,51 +328,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Pazar/Controllers/UserController.cs</url>
-          <line>179</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\Pazar_BE\Pazar\Pazar\Controllers\UserController.cs" initialLine="179" containingFunctionPresentation="Method 'GetLoggedUser'">
-            <startOffsets>
-              <option value="6802" />
-            </startOffsets>
-            <endOffsets>
-              <option value="6899" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Pazar/Controllers/ItemController.cs</url>
-          <line>57</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\Pazar_BE\Pazar\Pazar\Controllers\ItemController.cs" initialLine="57" containingFunctionPresentation="Method 'CreateItem'">
-            <startOffsets>
-              <option value="1822" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1823" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Pazar/Controllers/ItemController.cs</url>
-          <line>93</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\Pazar_BE\Pazar\Pazar\Controllers\ItemController.cs" initialLine="93" containingFunctionPresentation="Method 'UpdateItem'">
-            <startOffsets>
-              <option value="3189" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3190" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
