@@ -133,5 +133,14 @@ namespace BLL.ItemRelated
 
             return filteredItems;
         }
+        
+        public async Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId)
+        {
+            var allItems = await GetAllItemsFilteredAsync();
+
+            var itemsInSameSubCategory = allItems.Where(item => item.SubCategory?.Id == subCategoryId);
+
+            return itemsInSameSubCategory;
+        }
     }
 }

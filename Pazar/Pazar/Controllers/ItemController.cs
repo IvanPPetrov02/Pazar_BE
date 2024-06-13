@@ -325,5 +325,12 @@ namespace Pazar.Controllers
             var items = await _itemManager.GetAllItemsFilteredAsync();
             return Ok(items);
         }
+        
+        [HttpGet("subcategory/{subCategoryId}")]
+        public async Task<IActionResult> GetItemsBySubCategory(int subCategoryId)
+        {
+            var items = await _itemManager.GetItemsBySubCategoryAsync(subCategoryId);
+            return Ok(items);
+        }
     }
 }

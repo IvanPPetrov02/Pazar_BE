@@ -15,5 +15,6 @@ namespace BLL.ManagerInterfaces
         Task<bool> IsUserSellerAsync(int itemId, string userId);
         Task<IEnumerable<Item>> GetItemsByParentCategoryAsync(int parentCategoryId);
         Task<IEnumerable<Item>> GetAllItemsFilteredAsync();
+        Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId);
     }
 }

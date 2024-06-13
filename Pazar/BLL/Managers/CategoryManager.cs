@@ -107,5 +107,12 @@ namespace BLL.CategoryRelated
 
             return result;
         }
+        
+        public async Task<IEnumerable<Category>> GetRandomSubCategoriesAsync(int count)
+        {
+            var allSubCategories = (await _categoryDao.GetAllCategoriesAsync()).Where(c => c.ParentCategory != null).ToList();
+            var random = new Random();
+            return allSubCategories.OrderBy(x => random.Next()).Take(count);
+        }
     }
 }

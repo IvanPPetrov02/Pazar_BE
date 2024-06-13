@@ -12,5 +12,6 @@ namespace BLL.CategoryRelated
         Task UpdateCategoryAsync(int id, CategoryUpdateDTO categoryDto);
         Task DeleteCategoryAsync(int id);
         Task<IEnumerable<CategoryWithSubcategoriesDTO>> GetAllCategoriesWithSubcategoriesAsync();
+        Task<IEnumerable<Category>> GetRandomSubCategoriesAsync(int count);
     }
 }

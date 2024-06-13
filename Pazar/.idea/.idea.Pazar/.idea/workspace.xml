@@ -11,14 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b86257b6-bcfe-4de0-b991-6a39e0bce74c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryCreateDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryUpdateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryUpdateDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryWithSubcategoriesDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/CategoryWithSubcategoriesDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/SubcategoryDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/CategoryDTOs/SubcategoryDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemCreateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemCreateDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemUpdateDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemUpdateDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/Entities/Item entities/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Entities/Item entities/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/ManagerInterfaces/ICategoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/ICategoryManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/ManagerInterfaces/IItemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/IItemManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/Managers/CategoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/CategoryManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/Managers/ItemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/ItemManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
@@ -28,7 +23,6 @@
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAL/Repositories/ItemDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/Repositories/ItemDAO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -40,6 +34,7 @@
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/CategoryController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/CategoryController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/Controllers/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/ItemController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
@@ -311,7 +306,8 @@
       <workItem from="1717973606765" duration="251000" />
       <workItem from="1718031823107" duration="2381000" />
       <workItem from="1718113670968" duration="12986000" />
-      <workItem from="1718211256617" duration="4481000" />
+      <workItem from="1718211256617" duration="5229000" />
+      <workItem from="1718267441335" duration="2635000" />
     </task>
     <servers />
   </component>

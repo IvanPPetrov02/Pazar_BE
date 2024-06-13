@@ -146,5 +146,13 @@ namespace Pazar.Controllers
             var categories = await _categoryManager.GetAllCategoriesWithSubcategoriesAsync();
             return Ok(categories);
         }
+        
+        [HttpGet("GetRandomSubCategories")]
+        public async Task<IActionResult> GetRandomSubCategories()
+        {
+            const int count = 10;
+            var subcategories = await _categoryManager.GetRandomSubCategoriesAsync(count);
+            return Ok(subcategories);
+        }
     }
 }
