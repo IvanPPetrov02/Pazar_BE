@@ -52,19 +52,6 @@ namespace Pazar.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryCreateDTO categoryDto)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             try
             {
                 var createdCategory = await _categoryManager.CreateCategoryAsync(categoryDto);
@@ -80,19 +67,6 @@ namespace Pazar.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryUpdateDTO categoryDto)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             try
             {
                 await _categoryManager.UpdateCategoryAsync(id, categoryDto);
@@ -112,19 +86,6 @@ namespace Pazar.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             try
             {
                 await _categoryManager.DeleteCategoryAsync(id);

@@ -7,6 +7,7 @@ using BLL.DTOs;
 using System.Threading.Tasks;
 using BLL.ManagerInterfaces;
 using BLL.Services;
+using CustomAuthorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Logging;
 
@@ -80,20 +81,6 @@ namespace Pazar.Controllers
         [HttpGet("{uuid}")]
         public async Task<IActionResult> GetUser(string uuid)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             var user = await _userManager.GetUserByIdAsync(uuid);
             return user != null ? Ok(user) : NotFound();
         }
@@ -102,20 +89,6 @@ namespace Pazar.Controllers
         [HttpPut("{uuid}")]
         public async Task<IActionResult> UpdateUser(string uuid, [FromBody] UserUpdateDTO userDto)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             try
             {
                 await _userManager.UpdateUserDetailsAsync(uuid, userDto);
@@ -130,22 +103,9 @@ namespace Pazar.Controllers
 
         [Authorize]
         [HttpDelete("{uuid}")]
+        //isTheUser
         public async Task<IActionResult> DeleteUser(string uuid)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             try
             {
                 await _userManager.DeleteUserAsync(uuid);
@@ -169,21 +129,7 @@ namespace Pazar.Controllers
         [HttpGet("GetUser")]
         public async Task<IActionResult> GetLoggedUser()
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
-            var userIdClaim = principal?.FindFirst(ClaimTypes.NameIdentifier);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
             {
                 return Unauthorized(new { message = "Invalid token." });
@@ -202,86 +148,31 @@ namespace Pazar.Controllers
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             var users = await _userManager.GetAllUsersAsync();
             return Ok(users);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost("activate/{uuid}")]
         public async Task<IActionResult> ActivateUser(string uuid)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             await _userManager.ActivateOrDeactivateUserAsync(uuid, true);
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost("deactivate/{uuid}")]
         public async Task<IActionResult> DeactivateUser(string uuid)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             await _userManager.ActivateOrDeactivateUserAsync(uuid, false);
             return Ok();
         }
 
         [Authorize]
         [HttpPost("change-password/{uuid}")]
+        //isTheUser
         public async Task<IActionResult> ChangePassword(string uuid, [FromBody] UserPasswordChangeDTO passwordChangeDto)
         {
-            var authorizationHeader = Request.Headers["Authorization"].ToString();
-            string jwt = null;
-
-            if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                jwt = authorizationHeader.Substring("Bearer ".Length).Trim();
-            }
-
-            if (string.IsNullOrEmpty(jwt) || !_jwtService.ValidateToken(jwt, out ClaimsPrincipal? principal))
-            {
-                _logger.LogWarning("Unauthorized access attempt with invalid or missing token");
-                return Unauthorized(new { message = "Invalid or missing authorization token." });
-            }
-
             try
             {
                 await _userManager.ChangePasswordAsync(uuid, passwordChangeDto.NewPassword, passwordChangeDto.OldPassword);

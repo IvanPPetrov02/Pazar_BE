@@ -142,5 +142,35 @@ namespace BLL.ItemRelated
 
             return itemsInSameSubCategory;
         }
+
+        public async Task<IEnumerable<Item>> GetItemsBySellerAsync(string sellerId)
+        {
+            var allItems = await _itemDao.GetAllItemsAsync();
+
+            var filteredItems = allItems.Where(item => item.Seller.UUID.ToString() == sellerId);
+
+            return filteredItems;
+        }
+
+        public async Task NewBidAsync(CreateItemBid bid)
+        {
+            var item = await _itemDao.GetItemByIdAsync(bid.ItemID);
+            var bidder = await _userDao.GetUserByIdAsync(bid.BidderID);
+            
+            ItemBids newBid = new ItemBids
+            {
+                Bid = bid.Bid,
+                BidTime = DateTime.UtcNow,
+                Bidder = bidder,
+                Item = item
+            };
+            
+            await _itemDao.NewBidAsync(newBid);
+        }
+
+        public async Task<IEnumerable<ItemBids>> GetBidsByItemIdAsync(int itemId)
+        {
+            return await _itemDao.GetBidsByItemIdAsync(itemId);
+        }
     }
 }

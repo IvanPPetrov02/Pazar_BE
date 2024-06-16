@@ -41,41 +41,51 @@ namespace BLL.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public bool ValidateToken(string token, out ClaimsPrincipal? principal)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_secretKey);
-
-            var validationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
-            };
-
-            try
-            {
-                principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-                return true;
-            }
-            catch (SecurityTokenException)
-            {
-                principal = null;
-                return false;
-            }
-        }
-
-        public bool IsAdmin(ClaimsPrincipal principal)
-        {
-            return principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Admin";
-        }
-
-        public bool IsAdminOrOwner(ClaimsPrincipal principal, string userId)
-        {
-            return IsAdmin(principal) ||
-                   principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value == userId;
-        }
+        // //have it in program.cs
+        // public bool ValidateToken(string token, out ClaimsPrincipal? principal)
+        // {
+        //     var tokenHandler = new JwtSecurityTokenHandler();
+        //     var key = Encoding.ASCII.GetBytes(_secretKey);
+        //
+        //     var validationParameters = new TokenValidationParameters
+        //     {
+        //         ValidateIssuerSigningKey = true,
+        //         IssuerSigningKey = new SymmetricSecurityKey(key),
+        //         ValidateIssuer = false,
+        //         ValidateAudience = false,
+        //         ClockSkew = TimeSpan.Zero
+        //     };
+        //
+        //     try
+        //     {
+        //         principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+        //         return true;
+        //     }
+        //     catch (SecurityTokenException)
+        //     {
+        //         principal = null;
+        //         return false;
+        //     }
+        // }
+        //
+        // public bool IsAdmin(ClaimsPrincipal principal)
+        // {
+        //     return principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value == "Admin";
+        // }
+        //
+        // public bool IsAdminOrOwner(ClaimsPrincipal user, string ownerId)
+        // {
+        //     var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //     if (string.IsNullOrEmpty(userId))
+        //     {
+        //         return false;
+        //     }
+        //     
+        //     var roles = user.FindAll(ClaimTypes.Role).Select(r => r.Value);
+        //     bool isAdmin = roles.Contains("Admin");
+        //     bool isOwner = userId == ownerId;
+        //
+        //     return isAdmin || isOwner;
+        // }
     }
 }

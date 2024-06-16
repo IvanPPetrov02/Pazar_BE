@@ -16,12 +16,15 @@ using DAL.DbContexts;
 using DAL.Repositories;
 using MySqlConnector;
 using Pazar;
+using CustomAuthorization;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add logging
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
 var configuration = builder.Configuration;
 var environment = builder.Environment;
@@ -56,12 +59,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add repositories and managers
+// Auth
 builder.Services.AddScoped<IJwtService, JwtService>();
+// User
 builder.Services.AddScoped<IUserDAO, UserDAO>();
 builder.Services.AddScoped<IAddressDAO, AddressDAO>();
 builder.Services.AddScoped<IUserManager, UserManager>();
+// Item
 builder.Services.AddScoped<IItemDAO, ItemDAO>();
 builder.Services.AddScoped<IItemManager, ItemManager>();
+// Category
 builder.Services.AddScoped<ICategoryDAO, CategoryDAO>();
 builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 
@@ -75,7 +82,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
-// Add authentication
+// Add controllers and Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -91,9 +98,11 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+// Add authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        // Validation parameters
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
@@ -102,16 +111,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
 
+        // Customize the token retrieval
         options.Events = new JwtBearerEvents
         {
             OnMessageReceived = context =>
             {
                 var authorizationHeader = context.Request.Headers["Authorization"].ToString();
-                if (string.IsNullOrEmpty(authorizationHeader) || !authorizationHeader.StartsWith("Bearer "))
-                {
-                    context.Token = context.Request.Cookies["jwt"];
-                }
-                else
+                if (!string.IsNullOrEmpty(authorizationHeader) && authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
                 {
                     context.Token = authorizationHeader.Substring("Bearer ".Length).Trim();
                 }
@@ -120,6 +126,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+
+// Add custom authorization
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOrOwnerPolicy", policy =>
+        policy.Requirements.Add(new AdminOrOwnerRequirement()));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
+builder.Services.AddScoped<AdminOrOwnerAttribute>();
 
 builder.Services.AddSingleton<IConfiguration>(configuration);
 
@@ -140,11 +156,21 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
 app.UseCors("NgOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Add WebSocket support
+var webSocketOptions = new WebSocketOptions
+{
+    KeepAliveInterval = TimeSpan.FromMinutes(2)
+};
+
+webSocketOptions.AllowedOrigins.Add("http://localhost:5173");
+webSocketOptions.AllowedOrigins.Add("http://localhost:3000");
+
+app.UseWebSockets(webSocketOptions);
 
 app.MapControllers();
 

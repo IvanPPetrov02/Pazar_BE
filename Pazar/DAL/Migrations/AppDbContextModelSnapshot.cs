@@ -3,6 +3,7 @@ using System;
 using DAL.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -19,11 +20,15 @@ namespace DAL.Migrations
                 .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
             modelBuilder.Entity("BLL.Address", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -56,6 +61,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -76,6 +83,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.HasKey("Id");
 
                     b.ToTable("Chats");
@@ -86,6 +95,8 @@ namespace DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("ChatId")
                         .HasColumnType("int");
@@ -122,6 +133,8 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("BidDuration")
                         .HasColumnType("int");
 
@@ -139,11 +152,13 @@ namespace DAL.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<double?>("Price")
                         .HasColumnType("double");
@@ -168,11 +183,42 @@ namespace DAL.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("BLL.Item_related.ItemBids", b =>
+                {
+                    b.Property<int>("BidId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("BidId"));
+
+                    b.Property<double>("Bid")
+                        .HasColumnType("double");
+
+                    b.Property<DateTime>("BidTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("BidderUUID")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BidId");
+
+                    b.HasIndex("BidderUUID");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ItemBids");
+                });
+
             modelBuilder.Entity("BLL.Item_related.ItemImages", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -291,6 +337,25 @@ namespace DAL.Migrations
                     b.Navigation("Seller");
 
                     b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("BLL.Item_related.ItemBids", b =>
+                {
+                    b.HasOne("BLL.User", "Bidder")
+                        .WithMany()
+                        .HasForeignKey("BidderUUID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BLL.Item_related.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bidder");
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("BLL.Item_related.ItemImages", b =>

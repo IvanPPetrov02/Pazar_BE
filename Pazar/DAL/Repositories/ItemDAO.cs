@@ -59,5 +59,19 @@ namespace DAL.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task NewBidAsync(ItemBids bid)
+        {
+            _context.ItemBids.Add(bid);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ItemBids>> GetBidsByItemIdAsync(int itemId)
+        {
+            return await _context.ItemBids
+                .Include(b => b.Bidder)
+                .Where(b => b.Item.Id == itemId)
+                .ToListAsync();
+        }
     }
 }

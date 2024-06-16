@@ -9,5 +9,8 @@ namespace BLL.RepositoryInterfaces
         Task CreateItemAsync(Item item);
         Task UpdateItemAsync(Item item);
         Task DeleteItemAsync(int id);
+        
+        Task NewBidAsync(ItemBids bid);
+        Task<IEnumerable<ItemBids>> GetBidsByItemIdAsync(int itemId);
     }
 }
