@@ -132,11 +132,18 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOrOwnerPolicy", policy =>
         policy.Requirements.Add(new AdminOrOwnerRequirement()));
+    options.AddPolicy("IsTheUserOrAdminPolicy", policy =>
+        policy.Requirements.Add(new IsTheUserOrAdminRequirement()));
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
-builder.Services.AddScoped<AdminOrOwnerAttribute>();
+builder.Services.AddSingleton<IAuthorizationHandler, IsTheUserOrAdminHandler>();
 
+// Register the attributes in DI container
+builder.Services.AddScoped<AdminOrOwnerAttribute>();
+builder.Services.AddScoped<IsTheUserOrAdminAttribute>();
+
+// Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(configuration);
 
 var app = builder.Build();

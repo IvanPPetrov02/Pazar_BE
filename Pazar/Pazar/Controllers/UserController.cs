@@ -103,7 +103,7 @@ namespace Pazar.Controllers
 
         [Authorize]
         [HttpDelete("{uuid}")]
-        //isTheUser
+        [ServiceFilter(typeof(IsTheUserOrAdminAttribute))]
         public async Task<IActionResult> DeleteUser(string uuid)
         {
             try
@@ -170,7 +170,7 @@ namespace Pazar.Controllers
 
         [Authorize]
         [HttpPost("change-password/{uuid}")]
-        //isTheUser
+        [ServiceFilter(typeof(IsTheUserOrAdminAttribute))]
         public async Task<IActionResult> ChangePassword(string uuid, [FromBody] UserPasswordChangeDTO passwordChangeDto)
         {
             try
