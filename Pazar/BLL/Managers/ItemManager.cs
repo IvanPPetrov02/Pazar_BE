@@ -123,16 +123,53 @@ namespace BLL.ItemRelated
             return itemsInSameParentCategory;
         }
         
+        private int GetBidDurationInHours(BidDuration bidDuration)
+        {
+            switch (bidDuration)
+            {
+                case BidDuration.OneDay:
+                    return 24;
+                case BidDuration.ThreeDays:
+                    return 72;
+                case BidDuration.FiveDays:
+                    return 120;
+                case BidDuration.SevenDays:
+                    return 168;
+                case BidDuration.FourteenDays:
+                    return 336;
+                case BidDuration.TwentyOneDays:
+                    return 504;
+                case BidDuration.ThirtyDays:
+                    return 720;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(bidDuration), bidDuration, null);
+            }
+        }
+
+        
         public async Task<IEnumerable<Item>> GetAllItemsFilteredAsync()
         {
             var allItems = await _itemDao.GetAllItemsAsync();
+            var filteredItems = new List<Item>();
 
-            var filteredItems = allItems.Where(item =>
-                !item.BidOnly ||
-                item.CreatedAt.AddHours((double)item.BidDuration) > DateTime.UtcNow);
+            foreach (var item in allItems)
+            {
+                bool isNonBidItem = !item.BidOnly;
+                bool isBiddableItem = item.BidOnly && item.CreatedAt.AddHours(GetBidDurationInHours(item.BidDuration.Value)) > DateTime.UtcNow;
+
+                Console.WriteLine($"Item ID: {item.Id}, BidOnly: {item.BidOnly}, CreatedAt: {item.CreatedAt}, BidDuration: {item.BidDuration}");
+                Console.WriteLine($"isNonBidItem: {isNonBidItem}, isBiddableItem: {isBiddableItem}");
+
+                if (isNonBidItem || isBiddableItem)
+                {
+                    filteredItems.Add(item);
+                }
+            }
 
             return filteredItems;
         }
+
+
         
         public async Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId)
         {
@@ -152,20 +189,38 @@ namespace BLL.ItemRelated
             return filteredItems;
         }
 
-        public async Task NewBidAsync(CreateItemBid bid)
+        public async Task NewBidAsync(CreateItemBidDTO bidDto, string bidderId)
         {
-            var item = await _itemDao.GetItemByIdAsync(bid.ItemID);
-            var bidder = await _userDao.GetUserByIdAsync(bid.BidderID);
-            
-            ItemBids newBid = new ItemBids
+            try
             {
-                Bid = bid.Bid,
-                BidTime = DateTime.UtcNow,
-                Bidder = bidder,
-                Item = item
-            };
-            
-            await _itemDao.NewBidAsync(newBid);
+                var item = await _itemDao.GetItemByIdAsync(bidDto.ItemID);
+                if (item == null) throw new InvalidOperationException("Item not found.");
+
+                var highestBid = (await _itemDao.GetBidsByItemIdAsync(bidDto.ItemID)).OrderByDescending(b => b.Bid).FirstOrDefault();
+                if (highestBid != null && bidDto.Bid <= highestBid.Bid)
+                {
+                    throw new InvalidOperationException("New bid must be higher than the current highest bid.");
+                }
+
+                var bidder = await _userDao.GetUserByIdAsync(bidderId);
+                if (bidder == null) throw new InvalidOperationException("Bidder not found.");
+
+                ItemBids newBid = new ItemBids
+                {
+                    Bid = bidDto.Bid,
+                    BidTime = DateTime.UtcNow,
+                    Bidder = bidder,
+                    Item = item
+                };
+
+                await _itemDao.NewBidAsync(newBid);
+                Console.WriteLine("New bid successfully placed.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error placing new bid: {ex.Message}\n{ex.StackTrace}");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<ItemBids>> GetBidsByItemIdAsync(int itemId)

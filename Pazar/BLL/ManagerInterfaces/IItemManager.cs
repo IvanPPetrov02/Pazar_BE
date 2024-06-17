@@ -17,7 +17,7 @@ namespace BLL.ManagerInterfaces
         Task<IEnumerable<Item>> GetAllItemsFilteredAsync();
         Task<IEnumerable<Item>> GetItemsBySubCategoryAsync(int subCategoryId);
         Task<IEnumerable<Item>> GetItemsBySellerAsync(string sellerId);
-        Task NewBidAsync(CreateItemBid bid);
+        Task NewBidAsync(CreateItemBidDTO bidDto, string bidderId);
         Task<IEnumerable<ItemBids>> GetBidsByItemIdAsync(int itemId);
     }
 }

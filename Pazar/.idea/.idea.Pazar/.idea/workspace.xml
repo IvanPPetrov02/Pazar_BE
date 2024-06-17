@@ -10,14 +10,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b86257b6-bcfe-4de0-b991-6a39e0bce74c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Pazar/CustomAuthorization/IsTheUserOrAdmin/IsTheUserOrAdminAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pazar/CustomAuthorization/IsTheUserOrAdmin/IsTheUserOrAdminHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pazar/CustomAuthorization/IsTheUserOrAdmin/IsTheUserOrAdminRequirement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/CreateItemBidDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/ItemBidDTO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/CustomAuthorization/AdminOrOwnerAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/CustomAuthorization/AdminOrOwner/AdminOrOwnerAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/CustomAuthorization/AdminOrOwnerHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/CustomAuthorization/AdminOrOwner/AdminOrOwnerHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/CustomAuthorization/AdminOrOwnerRequirement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/CustomAuthorization/AdminOrOwner/AdminOrOwnerRequirement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ItemDTOs/CreateItemBid.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/ManagerInterfaces/IItemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/IItemManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/Managers/ItemManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/ItemManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/ItemBiddingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/ItemBiddingController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +312,9 @@
       <workItem from="1718211256617" duration="5229000" />
       <workItem from="1718267441335" duration="17403000" />
       <workItem from="1718400298853" duration="6648000" />
-      <workItem from="1718530835975" duration="11285000" />
+      <workItem from="1718530835975" duration="20179000" />
+      <workItem from="1718659186612" duration="25000" />
+      <workItem from="1718659234477" duration="7034000" />
     </task>
     <servers />
   </component>
