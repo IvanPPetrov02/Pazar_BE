@@ -7,19 +7,17 @@ public class Message
     [Key]
     public int Id { get; set; }
     public User Sender { get; set; }
-    public User Receiver { get; set; }
     public DateTime SentAt { get; set; }
     public string? MessageSent { get; set; }
-    public byte[]? ImageSent { get; set; }
-
-    public Message(int id, User sender, User receiver, DateTime sentAt, string? messageSent, byte[] imageSent)
+    public Chat Chat { get; set; }
+    
+    public Message(int id, User sender, DateTime sentAt, string messageSent, Chat chat)
     {
         Id = id;
         Sender = sender;
-        Receiver = receiver;
         SentAt = sentAt;
         MessageSent = messageSent;
-        ImageSent = imageSent;
+        Chat = chat;
     }
 
     public Message()

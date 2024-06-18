@@ -85,7 +85,17 @@ namespace DAL.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<Guid>("BuyerUUID")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("ItemSoldId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BuyerUUID");
+
+                    b.HasIndex("ItemSoldId");
 
                     b.ToTable("Chats");
                 });
@@ -98,17 +108,11 @@ namespace DAL.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ChatId")
+                    b.Property<int>("ChatId")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("ImageSent")
-                        .HasColumnType("longblob");
 
                     b.Property<string>("MessageSent")
                         .HasColumnType("longtext");
-
-                    b.Property<Guid>("ReceiverUUID")
-                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("SenderUUID")
                         .HasColumnType("char(36)");
@@ -119,8 +123,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChatId");
-
-                    b.HasIndex("ReceiverUUID");
 
                     b.HasIndex("SenderUUID");
 
@@ -291,15 +293,30 @@ namespace DAL.Migrations
                     b.Navigation("ParentCategory");
                 });
 
+            modelBuilder.Entity("BLL.Chat_related.Chat", b =>
+                {
+                    b.HasOne("BLL.User", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerUUID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BLL.Item_related.Item", "ItemSold")
+                        .WithMany()
+                        .HasForeignKey("ItemSoldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("ItemSold");
+                });
+
             modelBuilder.Entity("BLL.Chat_related.Message", b =>
                 {
-                    b.HasOne("BLL.Chat_related.Chat", null)
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatId");
-
-                    b.HasOne("BLL.User", "Receiver")
+                    b.HasOne("BLL.Chat_related.Chat", "Chat")
                         .WithMany()
-                        .HasForeignKey("ReceiverUUID")
+                        .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -309,7 +326,7 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Receiver");
+                    b.Navigation("Chat");
 
                     b.Navigation("Sender");
                 });
@@ -372,11 +389,6 @@ namespace DAL.Migrations
                         .HasForeignKey("AddressID");
 
                     b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("BLL.Chat_related.Chat", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("BLL.Item_related.Item", b =>

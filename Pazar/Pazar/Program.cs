@@ -9,6 +9,7 @@ using BLL;
 using BLL.CategoryRelated;
 using BLL.ItemRelated;
 using BLL.ManagerInterfaces;
+using BLL.Managers;
 using BLL.RepositoryInterfaces;
 using BLL.Services;
 using DAL.CategoryRelated;
@@ -71,6 +72,10 @@ builder.Services.AddScoped<IItemManager, ItemManager>();
 // Category
 builder.Services.AddScoped<ICategoryDAO, CategoryDAO>();
 builder.Services.AddScoped<ICategoryManager, CategoryManager>();
+// Chat
+builder.Services.AddScoped<IChatDAO, ChatDAO>();
+builder.Services.AddScoped<IMessageDAO, MessageDAO>();
+builder.Services.AddScoped<IChatManager, ChatManager>();
 
 // Add CORS policy for React application
 builder.Services.AddCors(options =>
@@ -134,14 +139,24 @@ builder.Services.AddAuthorization(options =>
         policy.Requirements.Add(new AdminOrOwnerRequirement()));
     options.AddPolicy("IsTheUserOrAdminPolicy", policy =>
         policy.Requirements.Add(new IsTheUserOrAdminRequirement()));
+    options.AddPolicy("IsSellerOrBuyerPolicy", policy =>
+        policy.Requirements.Add(new IsSellerOrBuyerRequirement()));
+    options.AddPolicy("IsNotSellerPolicy", policy =>
+        policy.Requirements.Add(new IsNotSellerRequirement()));
 });
 
-builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
-builder.Services.AddSingleton<IAuthorizationHandler, IsTheUserOrAdminHandler>();
+// Register the authorization handlers as scoped
+builder.Services.AddScoped<IAuthorizationHandler, AdminOrOwnerHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, IsTheUserOrAdminHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, IsSellerOrBuyerHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, IsNotSellerHandler>();
 
-// Register the attributes in DI container
+// Register the attributes in DI container as scoped
 builder.Services.AddScoped<AdminOrOwnerAttribute>();
 builder.Services.AddScoped<IsTheUserOrAdminAttribute>();
+builder.Services.AddScoped<IsSellerOrBuyerAttribute>();
+builder.Services.AddScoped<IsNotSellerAttribute>();
+
 
 // Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(configuration);
