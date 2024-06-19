@@ -68,20 +68,24 @@ namespace BLL.CategoryRelated
         {
             var category = await _categoryDao.GetCategoryByIdAsync(id);
             if (category == null) throw new InvalidOperationException("Category not found.");
-            
+    
             if (category.ParentCategory == null)
             {
                 var allCategories = await _categoryDao.GetAllCategoriesAsync();
-                var subcategories = allCategories.Where(c => c.ParentCategory != null && c.ParentCategory.Id == category.Id);
-                
-                foreach (var subcategory in subcategories)
+                var subcategoryIds = allCategories
+                    .Where(c => c.ParentCategory != null && c.ParentCategory.Id == category.Id)
+                    .Select(c => c.Id)
+                    .ToList();
+
+                foreach (var subcategoryId in subcategoryIds)
                 {
-                    await _categoryDao.DeleteCategoryAsync(subcategory.Id);
+                    await _categoryDao.DeleteCategoryAsync(subcategoryId);
                 }
             }
-            
+    
             await _categoryDao.DeleteCategoryAsync(id);
         }
+
         
         public async Task<IEnumerable<CategoryWithSubcategoriesDTO>> GetAllCategoriesWithSubcategoriesAsync()
         {

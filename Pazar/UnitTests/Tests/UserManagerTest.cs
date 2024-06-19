@@ -35,7 +35,6 @@ namespace UnitTests
         [Test]
         public async Task RegisterUserAsync_ShouldReturnUserCreated_WhenUserDoesNotExist()
         {
-            // Arrange
             var newUserDto = new UserRegisterDTO
             {
                 Email = "newuser@example.com",
@@ -44,17 +43,14 @@ namespace UnitTests
                 Surname = "User"
             };
 
-            // Act
             var result = await _userManager.RegisterUserAsync(newUserDto);
 
-            // Assert
             Assert.AreEqual("User created", result);
         }
 
         [Test]
         public async Task RegisterUserAsync_ShouldReturnUserAlreadyExists_WhenUserExists()
         {
-            // Arrange
             var existingUserDto = new UserRegisterDTO
             {
                 Email = "test1@example.com",
@@ -63,47 +59,38 @@ namespace UnitTests
                 Surname = "User1"
             };
 
-            // Act
             var result = await _userManager.RegisterUserAsync(existingUserDto);
 
-            // Assert
             Assert.AreEqual("User already exists", result);
         }
 
         [Test]
         public async Task AuthenticateUserAsync_ShouldReturnToken_WhenCredentialsAreValid()
         {
-            // Arrange
             var email = "test1@example.com";
             var password = "password1";
             var token = "valid-token";
             _mockJwtService.Setup(x => x.GenerateJwtToken(It.IsAny<User>())).Returns(token);
 
-            // Act
             var result = await _userManager.AuthenticateUserAsync(email, password);
 
-            // Assert
             Assert.AreEqual(token, result);
         }
 
         [Test]
         public async Task AuthenticateUserAsync_ShouldReturnNull_WhenCredentialsAreInvalid()
         {
-            // Arrange
             var email = "test1@example.com";
             var password = "wrongpassword";
 
-            // Act
             var result = await _userManager.AuthenticateUserAsync(email, password);
 
-            // Assert
             Assert.IsNull(result);
         }
 
         [Test]
         public async Task UpdateUserDetailsAsync_ShouldUpdateUser_WhenUserExists()
         {
-            // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
             var userDto = new UserUpdateDTO
             {
@@ -111,19 +98,29 @@ namespace UnitTests
                 Surname = "UpdatedSurname"
             };
 
-            // Act
             await _userManager.UpdateUserDetailsAsync(user.UUID.ToString(), userDto);
             var updatedUser = await _userDaoFake.GetUserByIdAsync(user.UUID.ToString());
 
-            // Assert
             Assert.AreEqual("UpdatedName", updatedUser.Name);
             Assert.AreEqual("UpdatedSurname", updatedUser.Surname);
         }
 
         [Test]
+        public async Task UpdateUserDetailsAsync_ShouldThrowException_WhenUserDoesNotExist()
+        {
+            var userDto = new UserUpdateDTO
+            {
+                Name = "UpdatedName",
+                Surname = "UpdatedSurname"
+            };
+
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                _userManager.UpdateUserDetailsAsync("nonexistent-uuid", userDto));
+        }
+
+        [Test]
         public async Task DeleteUserAsync_ShouldDeleteUserAndAddress_WhenUserExists()
         {
-            // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
             var address = new Address
             {
@@ -136,12 +133,10 @@ namespace UnitTests
             };
             user.Address = address;
 
-            // Act
             await _userManager.DeleteUserAsync(user.UUID.ToString());
             var deletedUser = await _userDaoFake.GetUserByIdAsync(user.UUID.ToString());
             var deletedAddress = await _addressDaoFake.GetAddressByIdAsync(address.ID);
 
-            // Assert
             Assert.IsNull(deletedUser);
             Assert.IsNull(deletedAddress);
         }
@@ -149,24 +144,27 @@ namespace UnitTests
         [Test]
         public async Task GetUserByIdAsync_ShouldReturnUser_WhenUserExists()
         {
-            // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
 
-            // Act
             var result = await _userManager.GetUserByIdAsync(user.UUID.ToString());
 
-            // Assert
             Assert.NotNull(result);
             Assert.AreEqual(user.UUID, result.UUID);
         }
 
         [Test]
+        public async Task GetUserByIdAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        {
+            var result = await _userManager.GetUserByIdAsync("nonexistent-uuid");
+
+            Assert.IsNull(result);
+        }
+
+        [Test]
         public async Task GetAllUsersAsync_ShouldReturnAllUsers()
         {
-            // Act
             var result = await _userManager.GetAllUsersAsync();
 
-            // Assert
             Assert.NotNull(result);
             Assert.AreEqual(3, result.Count());
         }
@@ -174,66 +172,84 @@ namespace UnitTests
         [Test]
         public async Task ActivateOrDeactivateUserAsync_ShouldChangeUserStatus_WhenUserExists()
         {
-            // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
             var initialStatus = user.IsActive;
 
-            // Act
             await _userManager.ActivateOrDeactivateUserAsync(user.UUID.ToString(), !initialStatus);
             var updatedUser = await _userDaoFake.GetUserByIdAsync(user.UUID.ToString());
 
-            // Assert
             Assert.AreNotEqual(initialStatus, updatedUser.IsActive);
         }
 
         [Test]
         public async Task GetUserByEmailAsync_ShouldReturnUser_WhenUserExists()
         {
-            // Arrange
             var email = "test1@example.com";
 
-            // Act
             var result = await _userManager.GetUserByEmailAsync(email);
 
-            // Assert
             Assert.NotNull(result);
             Assert.AreEqual(email, result.Email);
         }
 
         [Test]
+        public async Task GetUserByEmailAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        {
+            var result = await _userManager.GetUserByEmailAsync("nonexistent@example.com");
+
+            Assert.IsNull(result);
+        }
+
+        [Test]
         public async Task ChangePasswordAsync_ShouldChangePassword_WhenOldPasswordIsCorrect()
         {
-            // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
             var oldPassword = "password1";
             var newPassword = "newpassword1";
 
-            // Act
             await _userManager.ChangePasswordAsync(user.UUID.ToString(), newPassword, oldPassword);
             var updatedUser = await _userDaoFake.GetUserByIdAsync(user.UUID.ToString());
 
-            // Assert
             Assert.True(PassHash.ValidatePassword(newPassword, updatedUser.Password));
+        }
+
+        [Test]
+        public async Task ChangePasswordAsync_ShouldThrowException_WhenUserDoesNotExist()
+        {
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                _userManager.ChangePasswordAsync("nonexistent-uuid", "newpassword", "oldpassword"));
+        }
+
+        [Test]
+        public async Task ChangePasswordAsync_ShouldThrowException_WhenOldPasswordIsIncorrect()
+        {
+            var user = (await _userDaoFake.GetAllUsersAsync()).First();
+
+            Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
+                _userManager.ChangePasswordAsync(user.UUID.ToString(), "newpassword", "wrongpassword"));
         }
 
         [Test]
         public async Task GetLoggedUserAsync_ShouldReturnUser_WhenTokenIsValid()
         {
-            // Arrange
             var user = (await _userDaoFake.GetAllUsersAsync()).First();
-            var token = "valid-token";
             var claims = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UUID.ToString())
             }));
-            _mockJwtService.Setup(x => x.ValidateToken(token)).Returns(claims);
 
-            // Act
-            var result = await _userManager.GetLoggedUserAsync(token);
+            var result = await _userManager.GetLoggedUserAsync(user.UUID.ToString());
 
-            // Assert
             Assert.NotNull(result);
             Assert.AreEqual(user.UUID, result.UUID);
+        }
+
+        [Test]
+        public async Task GetLoggedUserAsync_ShouldReturnNull_WhenTokenIsInvalid()
+        {
+            var result = await _userManager.GetLoggedUserAsync("nonexistent-uuid");
+
+            Assert.IsNull(result);
         }
     }
 }
