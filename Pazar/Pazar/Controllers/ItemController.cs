@@ -80,11 +80,8 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
-
-
-
-
-
+        
+        
         [Authorize]
         [HttpPut("{id}")]
         [ServiceFilter(typeof(AdminOrOwnerAttribute))]
@@ -95,7 +92,7 @@ namespace Pazar.Controllers
             {
                 return NotFound(new { Message = "Item not found" });
             }
-    
+
             try
             {
                 itemDto.Id = id;
@@ -111,6 +108,7 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
 
         [Authorize]
         [HttpDelete("{id}")]
@@ -184,6 +182,7 @@ namespace Pazar.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
 
         
         

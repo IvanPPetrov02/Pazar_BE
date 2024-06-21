@@ -1,14 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/ActualSeverity/@EntryValue">INFO</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6ac538d6_002D6e0f_002D4b9d_002Da8ac_002D25c2e83cc0e2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UserTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;NUnit3x::A3ADAE5B-6705-400A-932D-BBD91C3A4BE6::net8.0::UnitTests.UserManagerTests&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::A112CA74-8436-42C5-8341-891AEBBB72F1::net8.0::Pazar.IntegrationTests.CategoryControllerIntegrationTests&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
-    &lt;ProjectFile&gt;A3ADAE5B-6705-400A-932D-BBD91C3A4BE6/d:Tests/f:CategoryManagerTests.cs&lt;/ProjectFile&gt;&#xD;
-    &lt;ProjectFile&gt;A3ADAE5B-6705-400A-932D-BBD91C3A4BE6/d:Tests/f:CategoryControllerTests.cs&lt;/ProjectFile&gt;&#xD;
-    &lt;ProjectFile&gt;A3ADAE5B-6705-400A-932D-BBD91C3A4BE6/d:Tests/f:ItemManagerTests.cs&lt;/ProjectFile&gt;&#xD;
-  &lt;/Or&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4dcad351_002De53e_002D4acb_002Db5c4_002D2d27c7a7d29a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UpdateItemAsync_ExistingItem_UpdatesItem" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::A3ADAE5B-6705-400A-932D-BBD91C3A4BE6::net8.0::UnitTests.ItemManagerTests.UpdateItemAsync_ExistingItem_UpdatesItem&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
 	</wpf:ResourceDictionary>

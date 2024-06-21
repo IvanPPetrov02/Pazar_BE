@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Text;
 using BLL.DTOs;
 using BLL.ManagerInterfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -58,7 +57,6 @@ namespace Pazar.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine($"WebSocket connection error: {ex.Message}");
             }
             finally
@@ -109,13 +107,7 @@ namespace Pazar.Controllers
             }
         }
 
-        [HttpGet("messages/{chatId}")]
-        public async Task<IActionResult> GetMessagesByChat(int chatId)
-        {
-            var messages = await _chatManager.GetMessagesByChatAsync(chatId);
-            var messagesWithNames = await AddUserNamesToMessages(messages);
-            return Ok(messagesWithNames);
-        }
+
 
         private async Task<IEnumerable<MessageWithNameDTO>> AddUserNamesToMessages(IEnumerable<MessageDTO> messages)
         {

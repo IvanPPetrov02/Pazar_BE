@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using BLL.Services;
 using CustomAuthorization;
+using Microsoft.Extensions.Logging;
 
 namespace Pazar.Controllers
 {
@@ -17,12 +16,14 @@ namespace Pazar.Controllers
     public class ChatController : ControllerBase
     {
         private readonly IChatManager _chatManager;
-        private readonly IJwtService _jwtService;
+        private readonly ILogger<ChatController> _logger;
+        private readonly IItemManager _itemManager;
 
-        public ChatController(IChatManager chatManager, IJwtService jwtService)
+        public ChatController(IChatManager chatManager, ILogger<ChatController> logger, IItemManager itemManager)
         {
             _chatManager = chatManager;
-            _jwtService = jwtService;
+            _logger = logger;
+            _itemManager = itemManager;
         }
 
         [HttpGet("{id}")]
@@ -31,18 +32,18 @@ namespace Pazar.Controllers
         {
             try
             {
-                Console.WriteLine($"Fetching chat with ID: {id}");
+                _logger.LogInformation($"Fetching chat with ID: {id}");
                 var chat = await _chatManager.GetChatByIdAsync(id);
                 if (chat == null)
                 {
-                    Console.WriteLine($"Chat with ID: {id} not found.");
+                    _logger.LogWarning($"Chat with ID: {id} not found.");
                     return NotFound(new { Message = "Chat not found." });
                 }
                 return Ok(chat);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching chat with ID: {id}, Error: {ex.Message}");
+                _logger.LogError(ex, $"Error fetching chat with ID: {id}");
                 return BadRequest(new { Message = ex.Message });
             }
         }
@@ -53,6 +54,7 @@ namespace Pazar.Controllers
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIdClaim == null)
             {
+                _logger.LogWarning("Invalid token.");
                 return Unauthorized(new { message = "Invalid token." });
             }
 
@@ -65,37 +67,61 @@ namespace Pazar.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching chats for user with ID: {userId}, Error: {ex.Message}");
+                _logger.LogError(ex, $"Error fetching chats for user with ID: {userId}");
                 return BadRequest(new { Message = ex.Message });
             }
         }
 
+
         [HttpPost]
-        [ServiceFilter(typeof(IsNotSellerAttribute))]
         public async Task<IActionResult> CreateChatOrMessage([FromBody] CreateChatOrMessageDTO dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null)
+            var buyerId = userIdClaim?.Value;
+
+            if (string.IsNullOrEmpty(buyerId))
             {
-                return Unauthorized(new { message = "Invalid token." });
+                return Unauthorized(new { Message = "User information is missing in the token." });
+            }
+
+            // Optionally, check if the buyerId from the token matches the one in the request body
+            if (dto.BuyerId != buyerId)
+            {
+                return BadRequest(new { Message = "Buyer ID in the token does not match the one in the request body." });
             }
 
             try
             {
-                await _chatManager.CreateChatOrMessageAsync(dto.ItemSoldId, dto.BuyerId, new MessageDTO
+                _logger.LogInformation($"Creating chat or message for ItemSoldId: {dto.ItemSoldId}, BuyerId: {buyerId}, MessageSent: {dto.MessageSent}");
+
+                // Manual authorization logic: check if the user is the seller of the item
+                var item = await _itemManager.GetItemByIdAsync(dto.ItemSoldId);
+                if (item == null)
                 {
-                    SenderId = userIdClaim.Value,
+                    return NotFound(new { Message = "Item not found." });
+                }
+
+                if (item.Seller.UUID.ToString() == buyerId)
+                {
+                    return new ObjectResult(new { Message = "User is the seller of the item." }) { StatusCode = 403 };
+                }
+
+                await _chatManager.CreateChatOrMessageAsync(dto.ItemSoldId, buyerId, new MessageDTO
+                {
+                    SenderId = buyerId,
                     SentAt = DateTime.UtcNow,
                     MessageSent = dto.MessageSent
                 });
-                return Ok(new { Message = "Chat or message created successfully." });
+
+                return Ok(new { Message = "Message sent successfully." });
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                _logger.LogError($"Error creating chat or message: {ex.Message}");
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
 
         [HttpGet("{chatId}/messages")]
         [ServiceFilter(typeof(IsSellerOrBuyerAttribute))]
@@ -108,11 +134,12 @@ namespace Pazar.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching messages for chat with ID: {chatId}, Error: {ex.Message}");
+                _logger.LogError(ex, $"Error fetching messages for chat with ID: {chatId}");
                 return BadRequest(new { Message = ex.Message });
             }
         }
 
+        // Uncomment if needed
         /*
         [HttpPut("messages/{id}")]
         public async Task<IActionResult> UpdateMessage(int id, [FromBody] MessageDTO messageDto)

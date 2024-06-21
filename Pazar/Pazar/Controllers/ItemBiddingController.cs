@@ -101,7 +101,7 @@ namespace Pazar.Controllers
                 Console.WriteLine($"Error processing message: {ex.Message}");
             }
         }
-
+        
         [Authorize]
         [HttpPost("newbid")]
         public async Task<IActionResult> NewBid([FromBody] CreateItemBidDTO bid)
@@ -117,6 +117,18 @@ namespace Pazar.Controllers
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized("User information is missing in the token.");
+            }
+
+            //check if the user is the seller of the item
+            var item = await _itemManager.GetItemByIdAsync(bid.ItemID);
+            if (item == null)
+            {
+                return NotFound("Item not found.");
+            }
+
+            if (item.Seller.UUID.ToString() == userId)
+            {
+                return new ObjectResult(new { Message = "User is the seller of the item." }) { StatusCode = 403 };
             }
 
             try

@@ -104,29 +104,23 @@ namespace UnitTests
         [Test]
         public async Task UpdateItemAsync_ExistingItem_UpdatesItem()
         {
-            var item = new Item { Id = 1, Name = "Existing Item" };
+            var item = new Item { Id = 1, Name = "Existing Item", Description = "Old Description", Price = 100 };
             await _itemDaoFake.CreateItemAsync(item);
 
             var itemDto = new ItemUpdateDTO
             {
                 Id = 1,
-                Name = "Updated Item",
                 Description = "Updated Description",
                 Price = 200,
-                Images = null,
-                SubCategoryId = 1,
-                Condition = Condition.Used,
-                BidOnly = false,
-                Status = ItemStatus.Available
             };
-
-            _categoryDaoMock.Setup(m => m.GetCategoryByIdAsync(itemDto.SubCategoryId)).ReturnsAsync(new Category { Id = 1, Name = "Category" });
 
             await _itemManager.UpdateItemAsync(itemDto);
 
             var updatedItem = await _itemDaoFake.GetItemByIdAsync(itemDto.Id);
-            Assert.AreEqual("Updated Item", updatedItem.Name);
+            Assert.AreEqual("Updated Description", updatedItem.Description);
+            Assert.AreEqual(200, updatedItem.Price);
         }
+
 
         [Test]
         public void UpdateItemAsync_ItemDoesNotExist_ThrowsException()
@@ -134,14 +128,8 @@ namespace UnitTests
             var itemDto = new ItemUpdateDTO
             {
                 Id = 1,
-                Name = "Updated Item",
                 Description = "Updated Description",
                 Price = 200,
-                Images = null,
-                SubCategoryId = 1,
-                Condition = Condition.Used,
-                BidOnly = false,
-                Status = ItemStatus.Available
             };
 
             Assert.ThrowsAsync<InvalidOperationException>(() => _itemManager.UpdateItemAsync(itemDto));

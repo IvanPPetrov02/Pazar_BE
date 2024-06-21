@@ -71,10 +71,7 @@ namespace Pazar.Controllers
                 });
                 return Ok(new { token });
             }
-            else
-            {
-                return Unauthorized("Authentication failed");
-            }
+            return Unauthorized("Authentication failed");
         }
 
         [Authorize]

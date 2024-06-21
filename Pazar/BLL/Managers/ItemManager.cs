@@ -51,25 +51,15 @@ namespace BLL.ItemRelated
         {
             var item = await _itemDao.GetItemByIdAsync(itemDto.Id);
             if (item == null) throw new InvalidOperationException("Item not found.");
-
-            var subCategory = await _categoryDao.GetCategoryByIdAsync(itemDto.SubCategoryId);
-            var buyer = itemDto.BuyerId != null ? await _userDao.GetUserByIdAsync(itemDto.BuyerId) : null;
-
-            item.Name = itemDto.Name;
+            
             item.Description = itemDto.Description.Length > 300
                 ? itemDto.Description.Substring(0, 300)
                 : itemDto.Description;
             item.Price = itemDto.Price;
-            item.Images = itemDto.Images?.Select(img => new ItemImages { Image = null }).ToList(); // Set image to null
-            item.SubCategory = subCategory;
-            item.Condition = itemDto.Condition;
-            item.BidOnly = itemDto.BidOnly;
-            item.Status = itemDto.Status;
-            item.BidDuration = itemDto.BidDuration;
-            item.Buyer = buyer;
 
             await _itemDao.UpdateItemAsync(item);
         }
+
 
 
 

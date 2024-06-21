@@ -22,6 +22,8 @@ namespace CustomAuthorization
 
             var requirement = new IsNotSellerRequirement();
 
+            _logger.LogDebug("IsNotSellerAttribute: Starting authorization.");
+
             var authorizationResult = await authService.AuthorizeAsync(user, context, requirement);
 
             if (!authorizationResult.Succeeded)
@@ -35,4 +37,5 @@ namespace CustomAuthorization
             }
         }
     }
+
 }
