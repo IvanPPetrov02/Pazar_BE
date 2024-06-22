@@ -72,9 +72,8 @@ namespace Pazar.Controllers
             }
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> CreateChatOrMessage([FromBody] CreateChatOrMessageDTO dto)
+        public async Task<IActionResult> CreateChat([FromBody] CreateChatDTO dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             var buyerId = userIdClaim?.Value;
@@ -92,7 +91,7 @@ namespace Pazar.Controllers
 
             try
             {
-                _logger.LogInformation($"Creating chat or message for ItemSoldId: {dto.ItemSoldId}, BuyerId: {buyerId}, MessageSent: {dto.MessageSent}");
+                _logger.LogInformation($"Creating chat for ItemSoldId: {dto.ItemSoldId}, BuyerId: {buyerId}");
 
                 // Manual authorization logic: check if the user is the seller of the item
                 var item = await _itemManager.GetItemByIdAsync(dto.ItemSoldId);
@@ -106,77 +105,20 @@ namespace Pazar.Controllers
                     return new ObjectResult(new { Message = "User is the seller of the item." }) { StatusCode = 403 };
                 }
 
-                await _chatManager.CreateChatOrMessageAsync(dto.ItemSoldId, buyerId, new MessageDTO
+                await _chatManager.CreateChatAsync(dto.ItemSoldId, buyerId, new MessageDTO
                 {
                     SenderId = buyerId,
                     SentAt = DateTime.UtcNow,
                     MessageSent = dto.MessageSent
                 });
 
-                return Ok(new { Message = "Message sent successfully." });
+                return Ok(new { Message = "Chat created successfully." });
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error creating chat or message: {ex.Message}");
+                _logger.LogError($"Error creating chat: {ex.Message}");
                 return BadRequest(new { Message = ex.Message });
             }
         }
-
-
-        [HttpGet("{chatId}/messages")]
-        [ServiceFilter(typeof(IsSellerOrBuyerAttribute))]
-        public async Task<IActionResult> GetMessagesByChat(int chatId)
-        {
-            try
-            {
-                var messages = await _chatManager.GetMessagesByChatAsync(chatId);
-                return Ok(messages);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error fetching messages for chat with ID: {chatId}");
-                return BadRequest(new { Message = ex.Message });
-            }
-        }
-
-        // Uncomment if needed
-        /*
-        [HttpPut("messages/{id}")]
-        public async Task<IActionResult> UpdateMessage(int id, [FromBody] MessageDTO messageDto)
-        {
-            try
-            {
-                messageDto.Id = id;
-                await _chatManager.UpdateMessageAsync(messageDto);
-                return Ok(new { Message = "Message updated successfully." });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(new { Message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
-        }
-
-        [HttpDelete("messages/{id}")]
-        public async Task<IActionResult> DeleteMessage(int id)
-        {
-            try
-            {
-                await _chatManager.DeleteMessageAsync(id);
-                return Ok(new { Message = "Message deleted successfully." });
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(new { Message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Message = ex.Message });
-            }
-        }
-        */
     }
 }

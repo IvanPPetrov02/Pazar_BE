@@ -6,11 +6,10 @@ namespace BLL.RepositoryInterfaces
 {
     public interface IMessageDAO
     {
-        Task CreateMessageAsync(Message message);
-        Task DeleteMessageAsync(int id);
-        Task UpdateMessageAsync(Message message);
-        Task<IEnumerable<Message>> GetAllMessagesAsync();
-        Task<Message> GetMessageByIdAsync(int id);
         Task<IEnumerable<Message>> GetMessagesByChatAsync(int chatId);
+        Task<Message> GetMessageByIdAsync(int id);
+        Task CreateMessageAsync(Message message);
+        Task UpdateMessageAsync(Message message);
+        Task DeleteMessageAsync(int id);
     }
 }

@@ -19,6 +19,7 @@ using MySqlConnector;
 using Pazar;
 using CustomAuthorization;
 using Microsoft.AspNetCore.Authorization;
+using Pazar.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +77,7 @@ builder.Services.AddScoped<ICategoryManager, CategoryManager>();
 builder.Services.AddScoped<IChatDAO, ChatDAO>();
 builder.Services.AddScoped<IMessageDAO, MessageDAO>();
 builder.Services.AddScoped<IChatManager, ChatManager>();
+builder.Services.AddScoped<IMessageManager, MessageManager>();
 
 // Add CORS policy for React application
 builder.Services.AddCors(options =>
@@ -161,6 +163,9 @@ builder.Services.AddScoped<IsNotSellerAttribute>();
 // Register IConfiguration
 builder.Services.AddSingleton<IConfiguration>(configuration);
 
+// Add SignalR
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -193,6 +198,8 @@ webSocketOptions.AllowedOrigins.Add("http://localhost:5173");
 webSocketOptions.AllowedOrigins.Add("http://localhost:3000");
 
 app.UseWebSockets(webSocketOptions);
+
+app.MapHub<MessageHub>("/messageHub");
 
 app.MapControllers();
 

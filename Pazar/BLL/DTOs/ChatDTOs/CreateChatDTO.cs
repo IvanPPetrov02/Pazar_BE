@@ -1,6 +1,6 @@
 ﻿namespace BLL.DTOs
 {
-    public class CreateChatOrMessageDTO
+    public class CreateChatDTO
     {
         public int ItemSoldId { get; set; }
         public string BuyerId { get; set; }

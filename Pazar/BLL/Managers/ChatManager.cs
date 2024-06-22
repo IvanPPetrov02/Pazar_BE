@@ -23,27 +23,24 @@ namespace BLL.Managers
             _itemDAO = itemDAO;
         }
 
-        public async Task CreateChatOrMessageAsync(int itemSoldId, string buyerId, MessageDTO messageDto)
+        public async Task CreateChatAsync(int itemSoldId, string buyerId, MessageDTO messageDto)
         {
-            var chats = await _chatDAO.GetAllChatsAsync();
-            var existingChat = chats.FirstOrDefault(c => c.ItemSold.Id == itemSoldId && c.Buyer.UUID.ToString() == buyerId);
+            var item = await _itemDAO.GetItemByIdAsync(itemSoldId);
+            var buyer = await _userDAO.GetUserByIdAsync(buyerId);
             var sender = await _userDAO.GetUserByIdAsync(messageDto.SenderId);
 
-            if (sender == null)
+            if (item == null || buyer == null || sender == null)
             {
-                throw new ArgumentException("Invalid sender information.");
+                throw new ArgumentException("Invalid item, buyer, or sender information.");
             }
+
+            // Check if chat already exists
+            var existingChats = await _chatDAO.GetAllChatsAsync();
+            var existingChat = existingChats.FirstOrDefault(c => c.ItemSold.Id == itemSoldId && c.Buyer.UUID.ToString() == buyerId);
 
             if (existingChat == null)
             {
-                var item = await _itemDAO.GetItemByIdAsync(itemSoldId);
-                var buyer = await _userDAO.GetUserByIdAsync(buyerId);
-
-                if (item == null || buyer == null)
-                {
-                    throw new ArgumentException("Invalid item or buyer information.");
-                }
-
+                // Create new chat if it doesn't exist
                 var chat = new Chat
                 {
                     ItemSold = item,
@@ -64,6 +61,7 @@ namespace BLL.Managers
             }
             else
             {
+                // Send message to existing chat
                 var message = new Message
                 {
                     Sender = sender,
@@ -75,6 +73,7 @@ namespace BLL.Managers
                 await _messageDAO.CreateMessageAsync(message);
             }
         }
+
 
         public async Task<ChatDTO> GetChatByIdAsync(int id)
         {
@@ -108,41 +107,6 @@ namespace BLL.Managers
                 })
                 .Where(chatDto => chatDto.BuyerId != null && chatDto.SellerId != null)
                 .ToList();
-        }
-
-        public async Task<IEnumerable<MessageDTO>> GetMessagesByChatAsync(int chatId)
-        {
-            var messages = await _messageDAO.GetMessagesByChatAsync(chatId);
-            return messages.Select(m => new MessageDTO
-            {
-                Id = m.Id,
-                SenderId = m.Sender?.UUID.ToString(),
-                SentAt = m.SentAt,
-                MessageSent = m.MessageSent,
-                ChatId = m.Chat.Id
-            });
-        }
-
-        public async Task UpdateMessageAsync(MessageDTO messageDto)
-        {
-            var message = await _messageDAO.GetMessageByIdAsync(messageDto.Id);
-            var sender = await _userDAO.GetUserByIdAsync(messageDto.SenderId);
-
-            if (message == null || sender == null)
-            {
-                throw new ArgumentException("Invalid message or sender information.");
-            }
-
-            message.Sender = sender;
-            message.SentAt = messageDto.SentAt;
-            message.MessageSent = messageDto.MessageSent;
-
-            await _messageDAO.UpdateMessageAsync(message);
-        }
-
-        public async Task DeleteMessageAsync(int id)
-        {
-            await _messageDAO.DeleteMessageAsync(id);
         }
     }
 }
