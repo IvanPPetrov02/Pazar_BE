@@ -42,6 +42,7 @@ namespace BLL.Services
         }
 
         // //have it in program.cs
+        
         // public bool ValidateToken(string token, out ClaimsPrincipal? principal)
         // {
         //     var tokenHandler = new JwtSecurityTokenHandler();

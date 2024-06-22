@@ -82,8 +82,7 @@ namespace Pazar.Controllers
             {
                 return Unauthorized(new { Message = "User information is missing in the token." });
             }
-
-            // Optionally, check if the buyerId from the token matches the one in the request body
+            
             if (dto.BuyerId != buyerId)
             {
                 return BadRequest(new { Message = "Buyer ID in the token does not match the one in the request body." });
@@ -92,8 +91,7 @@ namespace Pazar.Controllers
             try
             {
                 _logger.LogInformation($"Creating chat for ItemSoldId: {dto.ItemSoldId}, BuyerId: {buyerId}");
-
-                // Manual authorization logic: check if the user is the seller of the item
+                
                 var item = await _itemManager.GetItemByIdAsync(dto.ItemSoldId);
                 if (item == null)
                 {

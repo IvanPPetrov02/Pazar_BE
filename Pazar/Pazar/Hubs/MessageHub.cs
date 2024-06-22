@@ -21,7 +21,6 @@ namespace Pazar.Hubs
         {
             try
             {
-                // Save the message
                 await _messageManager.CreateMessageAsync(messageDto);
 
                 // Broadcast the message to all clients in the same chat room

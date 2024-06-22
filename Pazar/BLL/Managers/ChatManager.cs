@@ -33,14 +33,12 @@ namespace BLL.Managers
             {
                 throw new ArgumentException("Invalid item, buyer, or sender information.");
             }
-
-            // Check if chat already exists
+            
             var existingChats = await _chatDAO.GetAllChatsAsync();
             var existingChat = existingChats.FirstOrDefault(c => c.ItemSold.Id == itemSoldId && c.Buyer.UUID.ToString() == buyerId);
 
             if (existingChat == null)
             {
-                // Create new chat if it doesn't exist
                 var chat = new Chat
                 {
                     ItemSold = item,
@@ -61,7 +59,6 @@ namespace BLL.Managers
             }
             else
             {
-                // Send message to existing chat
                 var message = new Message
                 {
                     Sender = sender,

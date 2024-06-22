@@ -56,7 +56,7 @@ namespace BLL.Managers
             await _messageDAO.DeleteMessageAsync(id);
         }
 
-        public async Task CreateMessageAsync(MessageDTO messageDto) // Add this method
+        public async Task CreateMessageAsync(MessageDTO messageDto)
         {
             var chat = await _chatDAO.GetChatByIdAsync(messageDto.ChatId);
             var sender = await _userDAO.GetUserByIdAsync(messageDto.SenderId);

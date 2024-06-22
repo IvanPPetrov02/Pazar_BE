@@ -57,7 +57,6 @@ namespace Pazar.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine($"WebSocket connection error: {ex.Message}");
             }
             finally
@@ -97,7 +96,6 @@ namespace Pazar.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine($"Error processing message: {ex.Message}");
             }
         }
@@ -137,8 +135,7 @@ namespace Pazar.Controllers
 
                 // Fetch the updated list of bids
                 var updatedBids = await _itemManager.GetBidsByItemIdAsync(bid.ItemID);
-
-                // Include bidder name in the updated bids
+                
                 var updatedBidsWithNames = updatedBids.Select(b => new
                 {
                     b.Bid,

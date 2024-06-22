@@ -28,8 +28,7 @@ namespace CustomAuthorization
             }
 
             var userId = userIdClaim.Value;
-
-            // Extract chatId from route values
+            
             if (!context.ActionArguments.TryGetValue("id", out var idValue) &&
                 !context.ActionArguments.TryGetValue("chatId", out idValue))
             {
