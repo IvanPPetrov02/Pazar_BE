@@ -56,74 +56,40 @@ namespace BLL
         }
 
         public async Task UpdateUserDetailsAsync(string uuid, UserUpdateDTO userDto)
-{
-    try
-    {
-        var user = await _userDao.GetUserByIdAsync(uuid);
-        if (user == null)
-            throw new InvalidOperationException("User not found.");
+        {
+            var user = await _userDao.GetUserByIdAsync(uuid);
+            if (user == null)
+                throw new InvalidOperationException("User not found.");
 
-        bool isUpdated = false;
+            if (userDto.Email != null && userDto.Email != user.Email)
+                user.Email = userDto.Email;
 
-        if (userDto.Email != null && userDto.Email != user.Email)
-        {
-            user.Email = userDto.Email;
-            isUpdated = true;
-        }
-        if (userDto.Name != null && userDto.Name != user.Name)
-        {
-            user.Name = userDto.Name;
-            isUpdated = true;
-        }
-        if (userDto.Surname != null && userDto.Surname != user.Surname)
-        {
-            user.Surname = userDto.Surname;
-            isUpdated = true;
-        }
-        if (userDto.Image != null && (user.Image == null || !userDto.Image.SequenceEqual(user.Image)))
-        {
-            user.Image = userDto.Image;
-            isUpdated = true;
-        }
-        if (userDto.IsActive != user.IsActive)
-        {
-            user.IsActive = userDto.IsActive;
-            isUpdated = true;
-        }
+            if (userDto.Name != null && userDto.Name != user.Name)
+                user.Name = userDto.Name;
 
-        if (userDto.Address != null)
-        {
-            var address = await _addressDao.GetAddressByIdAsync(user.Address?.ID ?? 0);
-            if (address == null)
+            if (userDto.Surname != null && userDto.Surname != user.Surname)
+                user.Surname = userDto.Surname;
+
+            if (userDto.Address != null)
             {
-                await _addressDao.CreateAddressAsync(userDto.Address);
-                user.Address = userDto.Address;
+                if (user.Address == null)
+                {
+                    user.Address = userDto.Address;
+                    await _addressDao.CreateAddressAsync(user.Address);
+                }
+                else
+                {
+                    user.Address.Country = userDto.Address.Country;
+                    user.Address.City = userDto.Address.City;
+                    user.Address.Street = userDto.Address.Street;
+                    user.Address.Number = userDto.Address.Number;
+                    user.Address.ZipCode = userDto.Address.ZipCode;
+                    await _addressDao.UpdateAddressAsync(user.Address);
+                }
             }
-            else
-            {
-                user.Address = userDto.Address;
-                await _addressDao.UpdateAddressAsync(user.Address);
-            }
-            isUpdated = true;
-        }
 
-        if (isUpdated)
-        {
             await _userDao.UpdateUserAsync(user);
         }
-    }
-    catch (DbUpdateException dbEx)
-    {
-        var innerException = dbEx.InnerException?.Message ?? dbEx.Message;
-        Console.WriteLine($"An error occurred while saving the entity changes: {innerException}");
-        throw;
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"An unexpected error occurred: {ex.Message}");
-        throw;
-    }
-}
 
 
 
@@ -184,8 +150,17 @@ namespace BLL
 
         public async Task<User?> GetUserByIdAsync(string uuid)
         {
-            return await _userDao.GetUserByIdAsync(uuid);
+            var user = await _userDao.GetUserByIdAsync(uuid);
+            if (user != null)
+            {
+                if (user.Address == null)
+                {
+                    user.Address = await _addressDao.GetAddressByIdAsync(user.Address?.ID ?? 0);
+                }
+            }
+            return user;
         }
+
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
@@ -229,10 +204,6 @@ namespace BLL
         {
             return await GetUserByIdAsync(userId);
         }
-
-
-
-
-
+        
     }
 }

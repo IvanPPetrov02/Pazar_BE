@@ -10,26 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b86257b6-bcfe-4de0-b991-6a39e0bce74c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/IMessageManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BLL/Managers/MessageManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Pazar/Hubs/MessageHub.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pazar/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/DTOs/ChatDTOs/CreateChatOrMessageDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/ChatDTOs/CreateChatDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/ManagerInterfaces/IChatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/ManagerInterfaces/IChatManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/Managers/ChatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/ChatManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/RepositoryInterfaces/IMessageDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/RepositoryInterfaces/IMessageDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserPasswordChangeDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserPasswordChangeDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserRegisterDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/DTOs/UserDTOs/UserRegisterDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BLL/Managers/UserManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/Managers/UserManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/ref/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/Debug/net8.0/refint/BLL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BLL/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/BLL/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAL/Repositories/MessageDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/Repositories/MessageDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/Repositories/AddressDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/Repositories/AddressDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DAL/Repositories/UserDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/Repositories/UserDAO.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/bin/Debug/net8.0/DAL.dll" afterDir="false" />
@@ -41,36 +35,23 @@
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/DAL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/ref/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/Debug/net8.0/refint/DAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAL/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/DAL/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/ChatController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/ChatController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/MessagesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Pazar.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Pazar.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/ItemController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/BLL.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/DAL.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/bin/Debug/net8.0/Pazar.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/Pazar.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/ref/Pazar.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Debug/net8.0/refint/Pazar.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/Pazar.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Pazar.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/Pazar.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/Pazar.csproj.nuget.g.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pazar/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Pazar/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +89,7 @@
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/Guid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/InvalidOperationException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/Runtime/ExceptionServices/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/String.Manipulation.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/String.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/1381d5ebd2ab1f292848d5b19b80cf71ac332508/src/libraries/System.Private.CoreLib/src/System/Threading/Tasks/Task.cs" root0="SKIP_HIGHLIGHTING" />
@@ -118,7 +100,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ac2a88a1b8c442bf847475a5a257846a5a00/9c/aeef44bc/BCrypt.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/82a4f4884e88f312d26e78cb2b2b7ca6ef105a715e3445338f3eef3b6871b098/SecurityRequirementsOperationFilter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BLL/Managers/ItemManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/vanit/Desktop/IP/Pazar_BE/Pazar/BLL/obj/Debug/net8.0/BLL.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Pazar/Controllers/UserController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Pazar/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Pazar/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
@@ -141,7 +122,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.Pazar: https.executor": "Debug",
+    ".NET Launch Settings Profile.Pazar: https.executor": "Run",
     "6ac538d6-6e0f-4b9d-a8ac-25c2e83cc0e2.executor": "Debug",
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Docker.Pazar/Dockerfile.executor": "Run",
@@ -352,7 +333,10 @@
       <workItem from="1718797411314" duration="8033000" />
       <workItem from="1718809620489" duration="28192000" />
       <workItem from="1718971646262" duration="11529000" />
-      <workItem from="1719078161537" duration="3102000" />
+      <workItem from="1719078161537" duration="7144000" />
+      <workItem from="1719089418798" duration="401000" />
+      <workItem from="1719090938372" duration="126000" />
+      <workItem from="1719134244129" duration="9389000" />
     </task>
     <servers />
   </component>
@@ -368,17 +352,30 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/UnitTests/FakeDAL/CategoryDAOFake.cs</url>
-          <line>45</line>
-          <properties documentPath="C:\Users\vanit\Desktop\IP\Pazar_BE\Pazar\UnitTests\FakeDAL\CategoryDAOFake.cs" initialLine="45" containingFunctionPresentation="Method 'DeleteCategoryAsync'">
+          <url>file://$PROJECT_DIR$/BLL/Managers/UserManager.cs</url>
+          <line>157</line>
+          <properties documentPath="C:\Users\vanit\Desktop\IP\Pazar_BE\Pazar\BLL\Managers\UserManager.cs" initialLine="157" containingFunctionPresentation="Method 'GetUserByIdAsync'">
             <startOffsets>
-              <option value="1281" />
+              <option value="5389" />
             </startOffsets>
             <endOffsets>
-              <option value="1282" />
+              <option value="5401" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="16" />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BLL/Managers/UserManager.cs</url>
+          <line>155</line>
+          <properties documentPath="C:\Users\vanit\Desktop\IP\Pazar_BE\Pazar\BLL\Managers\UserManager.cs" initialLine="155" containingFunctionPresentation="Method 'GetUserByIdAsync'">
+            <startOffsets>
+              <option value="5292" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5362" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

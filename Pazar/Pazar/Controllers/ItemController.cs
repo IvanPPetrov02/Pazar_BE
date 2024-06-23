@@ -213,5 +213,21 @@ namespace Pazar.Controllers
             var items = await _itemManager.GetItemsBySubCategoryAsync(subCategoryId);
             return Ok(items);
         }
+        
+        [Authorize]
+        [HttpGet("itemsbyseller/{sellerId}")]
+        public async Task<IActionResult> GetItemsBySeller(string sellerId)
+        {
+            try
+            {
+                var items = await _itemManager.GetItemsBySellerAsync(sellerId);
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
     }
 }

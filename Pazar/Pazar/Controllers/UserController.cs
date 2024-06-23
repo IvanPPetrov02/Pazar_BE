@@ -105,22 +105,27 @@ namespace Pazar.Controllers
         {
             try
             {
+                // Attempt to delete the user
                 await _userManager.DeleteUserAsync(uuid);
-                return NoContent(); // Return 204
+                // Return a NoContent status if the deletion is successful
+                return NoContent();
             }
             catch (InvalidOperationException ex)
             {
-                // Return 404
+                // Log a warning if the user was not found
                 _logger.LogWarning("User not found for deletion: " + ex.Message);
+                // Return a NotFound status with the exception message
                 return NotFound(new { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                // Return 500
+                // Log an error if an unexpected exception occurs
                 _logger.LogError(ex, "An error occurred while deleting the user");
+                // Return a 500 Internal Server Error status with the exception message
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
             }
         }
+
 
         [Authorize]
         [HttpGet("GetUser")]
@@ -206,5 +211,6 @@ namespace Pazar.Controllers
 
             return Ok("success");
         }
+        
     }
 }
